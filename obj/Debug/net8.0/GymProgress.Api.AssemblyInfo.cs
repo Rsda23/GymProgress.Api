@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GymProgress.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+320d4f9f09bdfc8ee3bcf1a5116c701043f951fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac972cb49fd9e3c06e2debcd6cb86cdb13438316")]
 [assembly: System.Reflection.AssemblyProductAttribute("GymProgress.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GymProgress.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

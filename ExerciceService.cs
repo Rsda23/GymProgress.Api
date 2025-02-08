@@ -59,7 +59,6 @@ namespace GymProgress.Api
             }
 
             var collection = _database.GetCollection<Exercice>("exercices");
-
             var builder = Builders<Exercice>.Filter.Regex(f => f.Nom, new BsonRegularExpression(nom, "i"));
            
 
@@ -68,9 +67,14 @@ namespace GymProgress.Api
             return matching;
         }
         
-        public void DeleteExercice()
+        public void DeleteExerciceById(string id)
         {
+            Exercice matching = GetExerciceById(id);
 
+            var collection = _database.GetCollection<Exercice>("exercices");
+
+            var builder = builders<Exercice>.Filter
+            collection.DeleteOne(matching);
         }
     }
 }
