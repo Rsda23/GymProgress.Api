@@ -1,10 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using GymProgress.Api.MongoHelpers;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
 
 namespace GymProgress.Api
 {
-    public class ExerciceService
+    public class ExerciceService : IExerciceService
     {
         private readonly IConfiguration _configuration;
         private readonly IMongoDatabase _database;
@@ -41,17 +42,14 @@ namespace GymProgress.Api
                 throw new InvalidOperationException("Error collection MongoDB");
             }
             var collection = _database.GetCollection<Exercice>("exercices");
-            
-            var builder = Builders<Exercice>.Filter;
-            ObjectId objectId = ObjectId.Parse(id);
-            var filter = builder.Eq("_id", objectId);
+            var filter = MongoHelper.BuildFindByIdRequest<Exercice>(id);
 
             Exercice matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
         }
 
-        public Exercice GetExerciceByName(string nom)
+        public Exercice GetExerciceByName(string name)
         {
             if (_database == null)
             {
@@ -59,7 +57,7 @@ namespace GymProgress.Api
             }
 
             var collection = _database.GetCollection<Exercice>("exercices");
-            var builder = Builders<Exercice>.Filter.Regex(f => f.Nom, new BsonRegularExpression(nom, "i"));
+            var builder = Builders<Exercice>.Filter.Regex(f => f.Nom, new BsonRegularExpression(name, "i"));
            
 
             Exercice matching = collection.Find(builder).FirstOrDefault();
@@ -73,8 +71,12 @@ namespace GymProgress.Api
 
             var collection = _database.GetCollection<Exercice>("exercices");
 
-            var builder = builders<Exercice>.Filter
-            collection.DeleteOne(matching);
+            if (matching != null)
+            {
+                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<Exercice>(id));
+            }
         }
     }
+
+    
 }

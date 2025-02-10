@@ -1,6 +1,6 @@
 ﻿namespace GymProgress.Api
 {
-    public class SeanceService
+    public class SeanceService : ISeanceService
     {
 
     }
