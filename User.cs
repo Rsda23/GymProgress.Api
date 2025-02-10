@@ -12,9 +12,8 @@ namespace GymProgress.Api
         public string Email { get; set; }
         public string HashedPassword { get; set; }
 
-        public User(string id, string pseudo, string email, string hashedPassword)
+        public User(string pseudo, string email, string hashedPassword)
         {
-            Id = id;
             Pseudo = pseudo;
             Email = email;
             HashedPassword = hashedPassword;
