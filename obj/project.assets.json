@@ -1041,11 +1041,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\A PV\\C#\\GymProgress.Api\\GymProgress.Api.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Desktop\\All\\c#\\GymProgress\\GymProgress.Api\\GymProgress.Api.csproj",
       "projectName": "GymProgress.Api",
-      "projectPath": "F:\\A PV\\C#\\GymProgress.Api\\GymProgress.Api.csproj",
+      "projectPath": "C:\\Users\\admin\\Desktop\\All\\c#\\GymProgress\\GymProgress.Api\\GymProgress.Api.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "F:\\A PV\\C#\\GymProgress.Api\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Desktop\\All\\c#\\GymProgress\\GymProgress.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
