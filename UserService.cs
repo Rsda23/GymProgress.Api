@@ -25,19 +25,18 @@ namespace GymProgress.Api
         {
             var collection = _database.GetCollection<User>("users");
 
-            var filter = MongoHelper.BuildFindByIdRequestId<User>(id);
+            var filter = MongoHelper.BuildFindByIdRequest<User>(id);
             User user = collection.Find(filter).FirstOrDefault();
 
             return user;
         }
 
-        //Passer dans MongoHelper
-        public User GetUserByName(string name)
+        public User GetUserByPseudo(string pseudo)
         {
             var collection = _database.GetCollection<User>("users");
 
-            var builder = Builders<User>.Filter.Regex(f => f.Pseudo, new BsonRegularExpression(name, "i"));
-            User user = collection.Find(builder).FirstOrDefault();
+            var filter = MongoHelper.BuildFindByChampRequest<User>("Pseudo", pseudo);
+            User user = collection.Find(filter).FirstOrDefault();
 
             return user;
         }
@@ -46,11 +45,26 @@ namespace GymProgress.Api
         {
             var collection = _database.GetCollection<User>("users");
 
-            var builder = Builders<User>.Filter.Regex(f => f.Email, new BsonRegularExpression(email, "i"));
+            var builder = MongoHelper.BuildFindByChampRequest<User>("Email", email);
             User user = collection.Find(builder).FirstOrDefault();
 
             return user;
         }
 
+        public void DeleteUserById(string id)
+        {
+            var collection = _database.GetCollection<User>("users");
+            var filter = MongoHelper.BuildFindByIdRequest<User>(id);
+
+            collection.DeleteOne(filter);
+        }
+
+        public void DeleteUserByEmail(string email)
+        {
+            var collection = _database.GetCollection<User>("users");
+            var filter = MongoHelper.BuildFindByChampRequest<User>("Email", email);
+
+            collection.DeleteOne(filter);
+        }
     }
 }

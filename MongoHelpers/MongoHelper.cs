@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace GymProgress.Api.MongoHelpers
 {
@@ -30,13 +31,21 @@ namespace GymProgress.Api.MongoHelpers
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static FilterDefinition<T> BuildFindByIdRequestId<T>(string id)
+        public static FilterDefinition<T> BuildFindByIdRequest<T>(string id)
         {
             var builder = Builders<T>.Filter;
             ObjectId objectId = ObjectId.Parse(id);
             var filter = builder.Eq("_id", objectId);
             return filter;
         }
+
+        public static FilterDefinition<T> BuildFindByChampRequest<T>(string champ, string value)
+        {
+            var builder = Builders<T>.Filter;
+            var filter = builder.Eq(champ, value);
+            return filter;
+        }
+
 
     }
 }

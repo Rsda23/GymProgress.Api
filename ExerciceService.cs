@@ -14,10 +14,9 @@ namespace GymProgress.Api
             _database = mongoHelpers.GetDatabase();
         }
 
-        public void PostExercice(string nom, int repetition, int serie, float charge)
+        public void PostExercice(string nom, int repetition, int serie, float charge, string userId)
         {
             DateTime date = DateTime.Now;
-            string UserId = /;
             Exercice exercice = new Exercice(nom, repetition, serie, charge, date, userId);
 
             if (_database == null)
@@ -35,14 +34,13 @@ namespace GymProgress.Api
                 throw new InvalidOperationException("Error collection MongoDB");
             }
             var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = MongoHelper.BuildFindByIdRequestId<Exercice>(id);
+            var filter = MongoHelper.BuildFindByIdRequest<Exercice>(id);
 
             Exercice matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
         }
 
-        //Passer dans MongoHelper
         public Exercice GetExerciceByName(string name)
         {
             if (_database == null)
@@ -51,9 +49,8 @@ namespace GymProgress.Api
             }
 
             var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = Builders<Exercice>.Filter.Regex(f => f.Nom, new BsonRegularExpression(name, "i"));
+            var filter = MongoHelper.BuildFindByChampRequest<Exercice>("Nom", name);
            
-
             Exercice matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
@@ -67,27 +64,27 @@ namespace GymProgress.Api
 
             if (matching != null)
             {
-                collection.DeleteOne(MongoHelper.BuildFindByIdRequestId<Exercice>(id));
+                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<Exercice>(id));
             }
         }
 
-        //Passer dans MongoHelper
         public void DeleteExerciceByName(string name)
         {
             Exercice matching = GetExerciceByName(name);
+            if (matching == null)
+            {
+                throw new InvalidOperationException("Error collection MongoDB");
+            }
 
             var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = Builders<Exercice>.Filter.Regex(f => f.Nom, new BsonRegularExpression(name, "i"));
+            var filter = MongoHelper.BuildFindByChampRequest<Exercice>("Nom", name);
 
-            if (matching != null)
-            {
-                collection.DeleteOne(filter);
-            }
+            collection.DeleteOne(filter);
         }
 
         public void PutExerice()
         {
-
+           
         }
     }
 

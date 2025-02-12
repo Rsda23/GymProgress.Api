@@ -29,9 +29,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostExercice")]
-        public void PostExercice(string nom, int repetition, int serie, float charge)
+        public void PostExercice(string nom, int repetition, int serie, float charge, string userId)
         {
-            _service.PostExercice(nom, repetition, serie, charge);
+            _service.PostExercice(nom, repetition, serie, charge, userId);
         }
 
         [HttpDelete("DeleteExerciceById")]
