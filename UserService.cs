@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace GymProgress.Api
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IMongoDatabase _database;
 
@@ -13,11 +13,15 @@ namespace GymProgress.Api
             _database = mongoHelper.GetDatabase();
         }
 
-        public void PostUser(string pseudo, string email, string password)
+        public void PostUser(string pseudo, string email, string hashedPassword)
         {
-            var collection = _database.GetCollection<User>("users");
+            User user = new User(pseudo, email, hashedPassword);
+            if (_database == null)
+            {
+                throw new InvalidOperationException("Error collection MongoDB");
+            }
 
-            User user = new User(pseudo, email, password);
+            var collection = _database.GetCollection<User>("users");
             collection.InsertOne(user);
 
         }
@@ -66,5 +70,28 @@ namespace GymProgress.Api
 
             collection.DeleteOne(filter);
         }
+
+        public void PutUser(string id, string pseudo, string email)
+        {
+            var collection = _database.GetCollection<User>("users");
+
+            var filter = MongoHelper.BuildFindByIdRequest<User>(id);
+            var update = Builders<User>.Update.Combine(
+                Builders<User>.Update.Set(f => f.Pseudo, pseudo),
+                Builders<User>.Update.Set(f => f.Email, email));
+
+            collection.UpdateOne(filter, update);
+        }
+
+        public void PutUserByPassword(string id, string password)
+        {
+            var collection = _database.GetCollection<User>("users");
+
+            var filter = MongoHelper.BuildFindByIdRequest<User>(id);
+            var update = Builders<User>.Update.Set(f => f.HashedPassword, password);
+
+            collection.UpdateOne(filter, update);
+        }
+
     }
 }

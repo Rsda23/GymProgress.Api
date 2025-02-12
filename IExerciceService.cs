@@ -7,5 +7,6 @@
         Exercice GetExerciceByName(string name);
         public void DeleteExerciceById(string id);
         public void DeleteExerciceByName(string name);
+        public void PutExercice(string id, string name, int repetition, int serie, float charge);
     }
 }

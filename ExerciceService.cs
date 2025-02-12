@@ -82,9 +82,19 @@ namespace GymProgress.Api
             collection.DeleteOne(filter);
         }
 
-        public void PutExerice()
+        public void PutExercice(string id, string name, int repetition, int serie, float charge)
         {
-           
+            var collection = _database.GetCollection<Exercice>("exercices");
+
+            var filter = MongoHelper.BuildFindByIdRequest<Exercice>(id);
+
+            var update = Builders<Exercice>.Update.Combine(
+                Builders<Exercice>.Update.Set(f => f.Nom, name),
+                Builders<Exercice>.Update.Set(f => f.Repetition, repetition),
+                Builders<Exercice>.Update.Set(f => f.Serie, serie),
+                Builders<Exercice>.Update.Set(f => f.Charge, charge));
+
+            collection.UpdateOne(filter, update);
         }
     }
 
