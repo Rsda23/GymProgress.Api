@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IExerciceService, ExerciceService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ISeanceService, SeanceService>();
 builder.Services.AddTransient<MongoHelper>();
 
 var app = builder.Build();

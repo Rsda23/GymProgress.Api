@@ -2,11 +2,11 @@
 
 namespace GymProgress.Api.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly IUserService _service;
 
-        public UserController(IUserService user)
+        public UsersController(IUserService user)
         {
             _service = user;
         }

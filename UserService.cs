@@ -1,5 +1,4 @@
 ﻿using GymProgress.Api.MongoHelpers;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GymProgress.Api
