@@ -1,5 +1,6 @@
-using GymProgress.Api;
+using GymProgress.Api.Interface;
 using GymProgress.Api.MongoHelpers;
+using GymProgress.Api.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

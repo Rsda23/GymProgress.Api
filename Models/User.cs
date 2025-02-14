@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace GymProgress.Api
+namespace GymProgress.Api.Models
 {
     public class User
     {

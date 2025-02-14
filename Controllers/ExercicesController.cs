@@ -1,3 +1,5 @@
+using GymProgress.Api.Interface;
+using GymProgress.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymProgress.Api.Controllers

@@ -1,4 +1,6 @@
-﻿namespace GymProgress.Api
+﻿using GymProgress.Api.Models;
+
+namespace GymProgress.Api.Interface
 {
     public interface IExerciceService
     {

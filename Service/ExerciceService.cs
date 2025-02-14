@@ -1,12 +1,13 @@
-﻿using GymProgress.Api.MongoHelpers;
-using MongoDB.Bson;
+﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Models;
+using GymProgress.Api.MongoHelpers;
 using MongoDB.Driver;
 
-namespace GymProgress.Api
+namespace GymProgress.Api.Service
 {
     public class ExerciceService : IExerciceService
     {
-        
+
         private readonly IMongoDatabase _database;
 
         public ExerciceService(MongoHelper mongoHelpers)
@@ -50,12 +51,12 @@ namespace GymProgress.Api
 
             var collection = _database.GetCollection<Exercice>("exercices");
             var filter = MongoHelper.BuildFindByChampRequest<Exercice>("Nom", name);
-           
+
             Exercice matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
         }
-        
+
         public void DeleteExerciceById(string id)
         {
             Exercice matching = GetExerciceById(id);
@@ -98,5 +99,5 @@ namespace GymProgress.Api
         }
     }
 
-    
+
 }

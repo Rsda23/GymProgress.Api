@@ -1,9 +1,9 @@
-﻿using GymProgress.Api.MongoHelpers;
+﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Models;
+using GymProgress.Api.MongoHelpers;
 using MongoDB.Driver;
-using System.Linq;
-using System.Xml.Linq;
 
-namespace GymProgress.Api
+namespace GymProgress.Api.Service
 {
     public class SeanceService : ISeanceService
     {
@@ -147,7 +147,7 @@ namespace GymProgress.Api
         {
             Seance seance = GetSeanceById(Seanceid);
 
-            if (exerciceId !=null && exerciceId.Count() > 0)
+            if (exerciceId != null && exerciceId.Count() > 0)
             {
                 seance.Exercices.RemoveAll(f => exerciceId.Contains(f.Id));
             }

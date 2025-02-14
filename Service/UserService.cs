@@ -1,7 +1,9 @@
-﻿using GymProgress.Api.MongoHelpers;
+﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Models;
+using GymProgress.Api.MongoHelpers;
 using MongoDB.Driver;
 
-namespace GymProgress.Api
+namespace GymProgress.Api.Service
 {
     public class UserService : IUserService
     {

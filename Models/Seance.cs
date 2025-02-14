@@ -1,8 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Serializers;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace GymProgress.Api
+namespace GymProgress.Api.Models
 {
     public class Seance
     {
