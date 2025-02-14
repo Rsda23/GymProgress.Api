@@ -12,9 +12,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostUser")]
-        public void PostUser(string pseudo, string email, string hashedPassword)
+        public void CreateUser(string pseudo, string email, string hashedPassword)
         {
-            _service.PostUser(pseudo, email, hashedPassword);
+            _service.CreateUser(pseudo, email, hashedPassword);
         }
 
         [HttpGet("GetUserById")]
@@ -48,15 +48,15 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPut("PutUser")]
-        public void PutUser(string id, string pseudo, string email)
+        public void ReplaceUser(string id, string pseudo, string email)
         {
-            _service.PutUser(id, pseudo, email);
+            _service.ReplaceUser(id, pseudo, email);
         }
 
         [HttpPut("PutUserByPassword")]
-        public void PutUserByPassword(string id, string password)
+        public void ReplaceUserByPassword(string id, string password)
         {
-            _service.PutUserByPassword(id, password);
+            _service.ReplaceUserByPassword(id, password);
         }
     }
 }

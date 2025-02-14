@@ -14,7 +14,7 @@ namespace GymProgress.Api
             _database = mongoHelpers.GetDatabase();
         }
 
-        public void PostExercice(string nom, int repetition, int serie, float charge, string userId)
+        public void CreateExercice(string nom, int repetition, int serie, float charge, string userId)
         {
             DateTime date = DateTime.Now;
             Exercice exercice = new Exercice(nom, repetition, serie, charge, date, userId);
@@ -82,7 +82,7 @@ namespace GymProgress.Api
             collection.DeleteOne(filter);
         }
 
-        public void PutExercice(string id, string name, int repetition, int serie, float charge)
+        public void ReplaceExercice(string id, string name, int repetition, int serie, float charge)
         {
             var collection = _database.GetCollection<Exercice>("exercices");
 

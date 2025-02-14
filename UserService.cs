@@ -12,7 +12,7 @@ namespace GymProgress.Api
             _database = mongoHelper.GetDatabase();
         }
 
-        public void PostUser(string pseudo, string email, string hashedPassword)
+        public void CreateUser(string pseudo, string email, string hashedPassword)
         {
             User user = new User(pseudo, email, hashedPassword);
             if (_database == null)
@@ -70,7 +70,7 @@ namespace GymProgress.Api
             collection.DeleteOne(filter);
         }
 
-        public void PutUser(string id, string pseudo, string email)
+        public void ReplaceUser(string id, string pseudo, string email)
         {
             var collection = _database.GetCollection<User>("users");
 
@@ -82,7 +82,7 @@ namespace GymProgress.Api
             collection.UpdateOne(filter, update);
         }
 
-        public void PutUserByPassword(string id, string password)
+        public void ReplaceUserByPassword(string id, string password)
         {
             var collection = _database.GetCollection<User>("users");
 

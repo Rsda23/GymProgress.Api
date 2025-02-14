@@ -12,15 +12,33 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostSeance")]
-        public void PostSeance(string name)
+        public void CreateSeance(string name)
         {
-            _service.PostSeance(name);
+            _service.CreateSeance(name);
         }
 
         [HttpPost("PostSeanceWithExerciceId")]
-        public void PostSeanceWithExerciceId(string name, List<string> exerciceId)
+        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId)
         {
-            _service.PostSeanceWithExerciceId(name, exerciceId);
+            _service.CreateSeanceWithExerciceId(nameSeance, exerciceId);
+        }
+
+        [HttpPost("PostSeanceWithExerciceName")]
+        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName)
+        {
+            _service.CreateSeanceWithExerciceName(nameSeance, exerciceName);
+        }
+
+        [HttpPost("PostExerciceToSeanceById")]
+        public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)
+        {
+            _service.AddExerciceToSeanceById(seanceId, execiceId);
+        }
+
+        [HttpPost("PostExerciceToSeanceByName")]
+        public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName)
+        {
+            _service.AddExerciceToSeanceByName(seanceId, execiceName);
         }
 
         [HttpGet("GetSeanceById")]
@@ -47,22 +65,34 @@ namespace GymProgress.Api.Controllers
             _service.DeleteSeanceByName(name);
         }
 
+        [HttpDelete("DeleteExerciceToSeanceById")]
+        public void DeleteExerciceToSeanceById(string Seanceid, List<string> exerciceId)
+        {
+            _service.DeleteExerciceToSeanceById(Seanceid, exerciceId);
+        }
+
+        [HttpDelete("DeleteExerciceToSeanceByName")]
+        public void DeleteExerciceToSeanceByName(string Seanceid, List<string> exerciceName)
+        {
+            _service.DeleteExerciceToSeanceByName(Seanceid, exerciceName);
+        }
+
         [HttpPut("PutSeance")]
-        public void PutSeance(string id, string name, List<Exercice> exercices)
+        public void ReplaceSeance(string id, string name)
         {
-            _service.PutSeance(id, name, exercices);
+            _service.ReplaceSeance(id, name);
         }
 
-        [HttpPut("PutSeanceName")]
-        public void PutSeanceName(string id, string name)
+        [HttpPut("PutSeanceExerciceById")]
+        public void ReplaceExerciceById(string seanceId, List<string> exerciceId)
         {
-            _service.PutSeanceName(id, name);
+            _service.ReplaceExerciceById(seanceId, exerciceId);
         }
 
-        [HttpPut("PutSeanceExercice")]
-        public void PutSeanceExercice(string id, List<Exercice> exercices)
+        [HttpPut("PutSeanceExerciceByName")]
+        public void ReplaceExerciceByName(string seanceId, List<string> exerciceId)
         {
-            _service.PutSeanceExercice(id, exercices);
+            _service.ReplaceExerciceByName(seanceId, exerciceId);
         }
     }
 }

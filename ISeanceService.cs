@@ -2,14 +2,19 @@
 {
     public interface ISeanceService
     {
-        public void PostSeance(string name);
-        public void PostSeanceWithExerciceId(string name, List<string> exerciceId);
+        public void CreateSeance(string name);
+        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId);
+        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName);
+        public void AddExerciceToSeanceById(string seanceId, List<string> execiceId);
+        public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName);
         public Seance GetSeanceById(string id);
         public Seance GetSeanceByName(string name);
         public void DeleteSeanceById(string id);
         public void DeleteSeanceByName(string name);
-        public void PutSeance(string id, string name, List<Exercice> exercices);
-        public void PutSeanceName(string id, string name);
-        public void PutSeanceExercice(string id, List<Exercice> exercices);
+        public void DeleteExerciceToSeanceById(string Seanceid, List<string> exerciceId);
+        public void DeleteExerciceToSeanceByName(string Seanceid, List<string> exerciceName);
+        public void ReplaceSeance(string id, string name);
+        public void ReplaceExerciceById(string seanceId, List<string> exerciceId);
+        public void ReplaceExerciceByName(string seanceId, List<string> exerciceId);
     }
 }

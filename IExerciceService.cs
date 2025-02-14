@@ -2,11 +2,11 @@
 {
     public interface IExerciceService
     {
-        void PostExercice(string nom, int repetition, int serie, float charge, string userId);
+        void CreateExercice(string nom, int repetition, int serie, float charge, string userId);
         Exercice GetExerciceById(string id);
         Exercice GetExerciceByName(string name);
         public void DeleteExerciceById(string id);
         public void DeleteExerciceByName(string name);
-        public void PutExercice(string id, string name, int repetition, int serie, float charge);
+        public void ReplaceExercice(string id, string name, int repetition, int serie, float charge);
     }
 }
