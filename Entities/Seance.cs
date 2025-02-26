@@ -9,14 +9,14 @@ namespace GymProgress.Api.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<Exercice> Exercices { get; set; }
+        public List<ExerciceEntity> Exercices { get; set; }
 
-        public Seance(string name, List<Exercice> exercices)
+        public Seance(string name, List<ExerciceEntity> exercices)
         {
             Name = name;
             Exercices = exercices;
         }
-        public Seance(List<Exercice> exercices)
+        public Seance(List<ExerciceEntity> exercices)
         {
             Exercices = exercices;
         }

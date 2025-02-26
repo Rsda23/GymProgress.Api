@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "GymProgress.Api/1.0.0": {
         "dependencies": {
+          "GymProgress.Domain": "1.0.0",
           "MongoDB.Driver": "3.1.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -23,6 +24,14 @@
           "lib/net5.0/DnsClient.dll": {
             "assemblyVersion": "1.6.1.0",
             "fileVersion": "1.6.1.0"
+          }
+        }
+      },
+      "GymProgress.Domain/1.0.0": {
+        "runtime": {
+          "lib/net8.0/GymProgress.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -158,6 +167,13 @@
       "sha512": "sha512-4H/f2uYJOZ+YObZjpY9ABrKZI+JNw3uizp6oMzTXwDw6F+2qIPhpRl/1t68O/6e98+vqNiYGu+lswmwdYUy3gg==",
       "path": "dnsclient/1.6.1",
       "hashPath": "dnsclient.1.6.1.nupkg.sha512"
+    },
+    "GymProgress.Domain/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kLe2rCeGZCOrlgB96mXCs6uHs4mAqouOJpCDisOAWegzL4eb6LwAedeWK/vRG6dfu1rJTo5FNcv1G7Tlz4T3Fw==",
+      "path": "gymprogress.domain/1.0.0",
+      "hashPath": "gymprogress.domain.1.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",

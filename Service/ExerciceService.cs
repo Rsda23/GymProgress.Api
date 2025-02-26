@@ -18,82 +18,82 @@ namespace GymProgress.Api.Service
         public void CreateExercice(string nom, int repetition, int serie, float charge, string userId)
         {
             DateTime date = DateTime.Now;
-            Exercice exercice = new Exercice(nom, repetition, serie, charge, date, userId);
+            ExerciceEntity exercice = new ExerciceEntity(nom, repetition, serie, charge, date, userId);
 
             if (_database == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");
             }
-            var collection = _database.GetCollection<Exercice>("exercices");
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
             collection.InsertOne(exercice);
         }
 
-        public Exercice GetExerciceById(string id)
+        public ExerciceEntity GetExerciceById(string id)
         {
             if (_database == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");
             }
-            var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = MongoHelper.BuildFindByIdRequest<Exercice>(id);
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id);
 
-            Exercice matching = collection.Find(filter).FirstOrDefault();
+            ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
         }
 
-        public Exercice GetExerciceByName(string name)
+        public ExerciceEntity GetExerciceByName(string name)
         {
             if (_database == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");
             }
 
-            var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = MongoHelper.BuildFindByChampRequest<Exercice>("Nom", name);
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByChampRequest<ExerciceEntity>("Nom", name);
 
-            Exercice matching = collection.Find(filter).FirstOrDefault();
+            ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
             return matching;
         }
 
         public void DeleteExerciceById(string id)
         {
-            Exercice matching = GetExerciceById(id);
+            ExerciceEntity matching = GetExerciceById(id);
 
-            var collection = _database.GetCollection<Exercice>("exercices");
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
 
             if (matching != null)
             {
-                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<Exercice>(id));
+                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id));
             }
         }
 
         public void DeleteExerciceByName(string name)
         {
-            Exercice matching = GetExerciceByName(name);
+            ExerciceEntity matching = GetExerciceByName(name);
             if (matching == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");
             }
 
-            var collection = _database.GetCollection<Exercice>("exercices");
-            var filter = MongoHelper.BuildFindByChampRequest<Exercice>("Nom", name);
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByChampRequest<ExerciceEntity>("Nom", name);
 
             collection.DeleteOne(filter);
         }
 
         public void ReplaceExercice(string id, string name, int repetition, int serie, float charge)
         {
-            var collection = _database.GetCollection<Exercice>("exercices");
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
 
-            var filter = MongoHelper.BuildFindByIdRequest<Exercice>(id);
+            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id);
 
-            var update = Builders<Exercice>.Update.Combine(
-                Builders<Exercice>.Update.Set(f => f.Nom, name),
-                Builders<Exercice>.Update.Set(f => f.Repetition, repetition),
-                Builders<Exercice>.Update.Set(f => f.Serie, serie),
-                Builders<Exercice>.Update.Set(f => f.Charge, charge));
+            var update = Builders<ExerciceEntity>.Update.Combine(
+                Builders<ExerciceEntity>.Update.Set(f => f.Nom, name),
+                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, repetition),
+                Builders<ExerciceEntity>.Update.Set(f => f.Serie, serie),
+                Builders<ExerciceEntity>.Update.Set(f => f.Charge, charge));
 
             collection.UpdateOne(filter, update);
         }

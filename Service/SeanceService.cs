@@ -26,7 +26,7 @@ namespace GymProgress.Api.Service
         }
         public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId)
         {
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             if (exerciceId != null && exerciceId.Count() > 0)
             {
                 foreach (var id in exerciceId)
@@ -47,7 +47,7 @@ namespace GymProgress.Api.Service
         }
         public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName)
         {
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             if (exerciceName != null && exerciceName.Count() > 0)
             {
                 foreach (var name in exerciceName)
@@ -66,9 +66,9 @@ namespace GymProgress.Api.Service
         }
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)
         {
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             Seance oldSeance = GetSeanceById(seanceId);
-            List<Exercice> oldExercice = oldSeance.Exercices;
+            List<ExerciceEntity> oldExercice = oldSeance.Exercices;
 
             if (execiceId != null && execiceId.Count() > 0)
             {
@@ -91,9 +91,9 @@ namespace GymProgress.Api.Service
         }
         public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName)
         {
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             Seance oldSeance = GetSeanceById(seanceId);
-            List<Exercice> oldExercice = oldSeance.Exercices;
+            List<ExerciceEntity> oldExercice = oldSeance.Exercices;
 
             if (execiceName != null && execiceName.Count() > 0)
             {
@@ -186,7 +186,7 @@ namespace GymProgress.Api.Service
             var collection = _database.GetCollection<Seance>("seances");
             var filter = MongoHelper.BuildFindByIdRequest<Seance>(seanceId);
 
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             foreach (var id in exerciceId)
             {
                 var exercice = _exerciceService.GetExerciceById(id);
@@ -204,7 +204,7 @@ namespace GymProgress.Api.Service
             var collection = _database.GetCollection<Seance>("seances");
             var filter = MongoHelper.BuildFindByIdRequest<Seance>(seanceId);
 
-            List<Exercice> exercices = new List<Exercice>();
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
             foreach (var name in exerciceName)
             {
                 var exercice = _exerciceService.GetExerciceByName(name);

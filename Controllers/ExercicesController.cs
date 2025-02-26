@@ -25,13 +25,13 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetExerciceById")]
-        public Exercice GetExerciceById(string id)
+        public ExerciceEntity GetExerciceById(string id)
         {
             return _service.GetExerciceById(id);
         }
 
         [HttpGet("GetExerciceByName")]
-        public Exercice GetExerciceByName(string name)
+        public ExerciceEntity GetExerciceByName(string name)
         {
             return _service.GetExerciceByName(name);
         }
