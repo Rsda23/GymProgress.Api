@@ -43,6 +43,12 @@ namespace GymProgress.Api.Controllers
             _service.AddExerciceToSeanceByName(seanceId, execiceName);
         }
 
+        [HttpGet("GetAllSeance")]
+        public List<Seance> GetAllSeance()
+        { 
+            return _service.GetAllSeance(); 
+        }
+
         [HttpGet("GetSeanceById")]
         public Seance GetSeanceById(string id)
         {

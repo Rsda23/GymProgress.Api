@@ -9,6 +9,7 @@ namespace GymProgress.Api.Interface
         public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName);
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId);
         public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName);
+        public List<Seance> GetAllSeance();
         public Seance GetSeanceById(string id);
         public Seance GetSeanceByName(string name);
         public void DeleteSeanceById(string id);

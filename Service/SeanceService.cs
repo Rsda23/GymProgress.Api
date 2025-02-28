@@ -115,6 +115,13 @@ namespace GymProgress.Api.Service
             collection.UpdateOne(filter, update);
         }
 
+        public List<Seance> GetAllSeance()
+        {
+            var collection = _database.GetCollection<Seance>("seances");
+            List<Seance> seances = collection.Find(Builders<Seance>.Filter.Empty).ToList();
+
+            return seances;
+        }
         public Seance GetSeanceById(string id)
         {
             var collection = _database.GetCollection<Seance>("seances");
