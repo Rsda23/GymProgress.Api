@@ -5,6 +5,7 @@ namespace GymProgress.Api.Interface
     public interface IUserService
     {
         public void CreateUser(string pseudo, string email, string hashedPassword);
+        public List<User> GetAllUser();
         public User GetUserById(string id);
         public User GetUserByPseudo(string pseudo);
         public User GetUserByEmail(string email);

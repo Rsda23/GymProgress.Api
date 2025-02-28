@@ -1,6 +1,7 @@
 ﻿using GymProgress.Api.Interface;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
+using GymProgress.Domain.Models;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
@@ -26,6 +27,14 @@ namespace GymProgress.Api.Service
             }
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
             collection.InsertOne(exercice);
+        }
+
+        public List<ExerciceEntity> GetAllExercice()
+        {
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            List<ExerciceEntity> exercices = collection.Find(Builders<ExerciceEntity>.Filter.Empty).ToList();
+
+            return exercices;
         }
 
         public ExerciceEntity GetExerciceById(string id)

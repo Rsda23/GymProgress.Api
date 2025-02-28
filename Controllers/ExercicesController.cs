@@ -24,6 +24,12 @@ namespace GymProgress.Api.Controllers
             _service.CreateExercice(nom, repetition, serie, charge, userId);
         }
 
+        [HttpGet("GetAllExercice")]
+        public List<ExerciceEntity> GetAllExercice()
+        {
+            return _service.GetAllExercice();
+        }
+
         [HttpGet("GetExerciceById")]
         public ExerciceEntity GetExerciceById(string id)
         {

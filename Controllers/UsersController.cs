@@ -19,6 +19,12 @@ namespace GymProgress.Api.Controllers
             _service.CreateUser(pseudo, email, hashedPassword);
         }
 
+        [HttpGet("GetAllUser")]
+        public List<User> GetAllUser()
+        {
+            return _service.GetAllUser();
+        }
+
         [HttpGet("GetUserById")]
         public User GetUserById(string id)
         {

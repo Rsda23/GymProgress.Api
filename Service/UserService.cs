@@ -26,6 +26,14 @@ namespace GymProgress.Api.Service
             collection.InsertOne(user);
 
         }
+
+        public List<User> GetAllUser()
+        {
+            var collection = _database.GetCollection<User>("users");
+            List<User> users = collection.Find(Builders<User>.Filter.Empty).ToList();
+
+            return users;
+        }
         public User GetUserById(string id)
         {
             var collection = _database.GetCollection<User>("users");
