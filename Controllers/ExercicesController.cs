@@ -34,6 +34,7 @@ namespace GymProgress.Api.Controllers
         public ExerciceEntity GetExerciceById(string id)
         {
             return _service.GetExerciceById(id);
+                
         }
 
         [HttpGet("GetExerciceByName")]

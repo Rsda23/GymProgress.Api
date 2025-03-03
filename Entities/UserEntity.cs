@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace GymProgress.Api.Models
 {
-    public class User
+    public class UserEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -12,7 +12,7 @@ namespace GymProgress.Api.Models
         public string Email { get; set; }
         public string HashedPassword { get; set; }
 
-        public User(string pseudo, string email, string hashedPassword)
+        public UserEntity(string pseudo, string email, string hashedPassword)
         {
             Pseudo = pseudo;
             Email = email;

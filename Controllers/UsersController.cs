@@ -20,25 +20,25 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetAllUser")]
-        public List<User> GetAllUser()
+        public List<UserEntity> GetAllUser()
         {
             return _service.GetAllUser();
         }
 
         [HttpGet("GetUserById")]
-        public User GetUserById(string id)
+        public UserEntity GetUserById(string id)
         {
             return _service.GetUserById(id);
         }
 
         [HttpGet("GetUserByPseudo")]
-        public User GetUserByPseudo(string pseudo)
+        public UserEntity GetUserByPseudo(string pseudo)
         {
             return _service.GetUserByPseudo(pseudo);
         }
 
         [HttpGet("GetUserByEmail")]
-        public User GetUserByEmail(string email)
+        public UserEntity GetUserByEmail(string email)
         {
             return _service.GetUserByEmail(email);
         }
