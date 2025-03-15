@@ -1,11 +1,12 @@
 ﻿using GymProgress.Api.Interface;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
+using GymProgress.Domain.Models;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
 {
-    public class SeanceService : ISeanceService
+    public class SeanceService : ISeanceService, IMapToList<SeanceEntity, Seance>
     {
         private readonly IMongoDatabase _database;
         private readonly IExerciceService _exerciceService;
@@ -115,12 +116,15 @@ namespace GymProgress.Api.Service
             collection.UpdateOne(filter, update);
         }
 
-        public List<SeanceEntity> GetAllSeance()
+        public List<Seance> GetAllSeance()
         {
+            var result = new List<Seance>();
             var collection = _database.GetCollection<SeanceEntity>("seances");
-            List<SeanceEntity> seances = collection.Find(Builders<SeanceEntity>.Filter.Empty).ToList();
-
-            return seances;
+            List<SeanceEntity> seances = collection
+                                            .Find(Builders<SeanceEntity>.Filter.Empty)
+                                            .ToList();
+            
+            return MapToList(seances);
         }
         public SeanceEntity GetSeanceById(string id)
         {
@@ -223,6 +227,16 @@ namespace GymProgress.Api.Service
 
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, exercices);
             collection.UpdateOne(filter, update);
+        }
+
+        public List<Seance> MapToList(List<SeanceEntity> data)
+        {
+            var result = new List<Seance>();
+            foreach (var item in data)
+            {
+                result.Add(item.MapToDomain());
+            }
+            return result;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetAllSeance")]
-        public List<SeanceEntity> GetAllSeance()
+        public List<Seance> GetAllSeance()
         { 
             return _service.GetAllSeance(); 
         }
@@ -55,7 +55,7 @@ namespace GymProgress.Api.Controllers
         {
             return _service
                         .GetSeanceById(id)
-                        .MapTo();
+                        .MapToDomain();
         }
 
         [HttpGet("GetSeanceByName")]
@@ -63,7 +63,7 @@ namespace GymProgress.Api.Controllers
         {
             return _service
                         .GetSeanceByName(name)
-                        .MapTo();
+                        .MapToDomain();
         }
 
         [HttpDelete("DeleteSeanceById")]

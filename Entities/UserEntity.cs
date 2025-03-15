@@ -1,9 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using GymProgress.Api.Interface;
+using GymProgress.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GymProgress.Api.Models
 {
-    public class UserEntity
+    public class UserEntity : IMapToDomain<User>
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -17,6 +19,11 @@ namespace GymProgress.Api.Models
             Pseudo = pseudo;
             Email = email;
             HashedPassword = hashedPassword;
+        }
+
+        public User MapToDomain()
+        {
+            throw new NotImplementedException();
         }
     }
 }
