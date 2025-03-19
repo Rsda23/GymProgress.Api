@@ -1,4 +1,5 @@
 ﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;

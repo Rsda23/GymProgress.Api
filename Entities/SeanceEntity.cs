@@ -1,4 +1,4 @@
-﻿using GymProgress.Api.Interface;
+﻿using GymProgress.Api.Interface.Map;
 using GymProgress.Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;

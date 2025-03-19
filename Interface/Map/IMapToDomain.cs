@@ -1,4 +1,4 @@
-﻿namespace GymProgress.Api.Interface
+﻿namespace GymProgress.Api.Interface.Map
 {
     public interface IMapToDomain<T>
     {
