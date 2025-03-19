@@ -67,9 +67,13 @@ namespace GymProgress.Api.Service
         }
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)
         {
-            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
-            SeanceEntity oldSeance = GetSeanceById(seanceId);
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+
+            SeanceEntity oldSeance = collection.Find(filter).FirstOrDefault();
+
             List<ExerciceEntity> oldExercice = oldSeance.Exercices;
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
 
             if (execiceId != null && execiceId.Count() > 0)
             {
@@ -84,17 +88,19 @@ namespace GymProgress.Api.Service
             }
 
             oldExercice.AddRange(exercices);
-
-            var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+            
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, oldExercice);
             collection.UpdateOne(filter, update);
         }
         public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName)
         {
-            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
-            SeanceEntity oldSeance = GetSeanceById(seanceId);
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+
+            SeanceEntity oldSeance = collection.Find(filter).FirstOrDefault();
+
             List<ExerciceEntity> oldExercice = oldSeance.Exercices;
+            List<ExerciceEntity> exercices = new List<ExerciceEntity>();
 
             if (execiceName != null && execiceName.Count() > 0)
             {
@@ -110,8 +116,6 @@ namespace GymProgress.Api.Service
 
             oldExercice.AddRange(exercices);
 
-            var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, oldExercice);
             collection.UpdateOne(filter, update);
         }
@@ -121,24 +125,25 @@ namespace GymProgress.Api.Service
             var result = new List<Seance>();
             var collection = _database.GetCollection<SeanceEntity>("seances");
             List<SeanceEntity> seances = collection
-                                            .Find(Builders<SeanceEntity>.Filter.Empty)
-                                            .ToList();
+                .Find(Builders<SeanceEntity>.Filter.Empty)
+                .ToList();
             
             return MapToList(seances);
         }
-        public SeanceEntity GetSeanceById(string id)
+        public Seance GetSeanceById(string id)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");
             var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(id);
             SeanceEntity seance = collection.Find(filter).FirstOrDefault();
-            return seance;
+            
+            return seance.MapToDomain();
         }
-        public SeanceEntity GetSeanceByName(string name)
+        public Seance GetSeanceByName(string name)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");
             var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("Name", name);
             SeanceEntity seance = collection.Find(filter).FirstOrDefault();
-            return seance;
+            return seance.MapToDomain();
 
         }
 
@@ -156,30 +161,31 @@ namespace GymProgress.Api.Service
         }
         public void DeleteExerciceToSeanceById(string Seanceid, List<string> exerciceId)
         {
-            SeanceEntity seance = GetSeanceById(Seanceid);
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
+
+            SeanceEntity seance = collection.Find(Seanceid).FirstOrDefault();
 
             if (exerciceId != null && exerciceId.Count() > 0)
             {
                 seance.Exercices.RemoveAll(f => exerciceId.Contains(f.Id));
             }
 
-            var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, seance.Exercices);
 
             collection.UpdateOne(filter, update);
         }
         public void DeleteExerciceToSeanceByName(string Seanceid, List<string> exerciceName)
         {
-            SeanceEntity seance = GetSeanceById(Seanceid);
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
+            SeanceEntity seance = collection.Find(Seanceid).FirstOrDefault();
 
             if (exerciceName != null && exerciceName.Count() > 0)
             {
                 seance.Exercices.RemoveAll(f => exerciceName.Contains(f.Nom));
             }
 
-            var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, seance.Exercices);
 
             collection.UpdateOne(filter, update);

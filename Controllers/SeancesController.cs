@@ -1,5 +1,4 @@
 ﻿using GymProgress.Api.Interface;
-using GymProgress.Api.Models;
 using GymProgress.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,17 +52,13 @@ namespace GymProgress.Api.Controllers
         [HttpGet("GetSeanceById")]
         public Seance GetSeanceById(string id)
         {
-            return _service
-                        .GetSeanceById(id)
-                        .MapToDomain();
+            return _service.GetSeanceById(id);
         }
 
         [HttpGet("GetSeanceByName")]
         public Seance GetSeanceByName(string name)
         {
-            return _service
-                        .GetSeanceByName(name)
-                        .MapToDomain();
+            return _service.GetSeanceByName(name);
         }
 
         [HttpDelete("DeleteSeanceById")]

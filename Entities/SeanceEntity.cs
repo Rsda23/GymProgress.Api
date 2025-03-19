@@ -13,6 +13,11 @@ namespace GymProgress.Api.Models
         public string Name { get; set; }
         public List<ExerciceEntity> Exercices { get; set; } = [];
 
+        public SeanceEntity()
+        {
+            Exercices = new List<ExerciceEntity>();
+        }
+
         public SeanceEntity(string name, List<ExerciceEntity> exercices)
         {
             Name = name;
@@ -27,6 +32,18 @@ namespace GymProgress.Api.Models
             Name = name;
         }
 
+        public Seance MapToDomain()
+        {
+            var result = new Seance
+            {
+                SeanceId = Id,
+                Name = Name,
+                Exercices = MapExercices()
+            };
+
+            return result;
+        }
+
         private List<Exercice> MapExercices()
         {
             var result = new List<Exercice>();
@@ -37,18 +54,6 @@ namespace GymProgress.Api.Models
                     result.Add(new Exercice(item.Nom, item.Repetition, item.Serie, item.Charge, item.Date, item.UserId));
                 }
             }
-            return result;
-        }
-
-        public Seance MapToDomain()
-        {
-            var result = new Seance
-            {
-                Exercices = MapExercices(),
-                Name = Name,
-                SeanceId = Id
-            };
-
             return result;
         }
     }
