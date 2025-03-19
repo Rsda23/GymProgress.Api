@@ -1,5 +1,6 @@
 ﻿using GymProgress.Api.Interface;
 using GymProgress.Api.Models;
+using GymProgress.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymProgress.Api.Controllers
@@ -20,25 +21,25 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetAllUser")]
-        public List<UserEntity> GetAllUser()
+        public List<User> GetAllUser()
         {
             return _service.GetAllUser();
         }
 
         [HttpGet("GetUserById")]
-        public UserEntity GetUserById(string id)
+        public User GetUserById(string id)
         {
             return _service.GetUserById(id);
         }
 
         [HttpGet("GetUserByPseudo")]
-        public UserEntity GetUserByPseudo(string pseudo)
+        public User GetUserByPseudo(string pseudo)
         {
             return _service.GetUserByPseudo(pseudo);
         }
 
         [HttpGet("GetUserByEmail")]
-        public UserEntity GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             return _service.GetUserByEmail(email);
         }

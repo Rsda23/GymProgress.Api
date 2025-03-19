@@ -23,7 +23,15 @@ namespace GymProgress.Api.Models
 
         public User MapToDomain()
         {
-            throw new NotImplementedException();
+            User result = new User
+            {
+                UserId = Id,
+                Pseudo = Pseudo,
+                Email = Email,
+                HashedPassword = HashedPassword
+            };
+
+            return result;
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
+using GymProgress.Domain.Models;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
 {
-    public class UserService : IUserService
+    public class UserService : IUserService, IMapToList<UserEntity, User>
     {
         private readonly IMongoDatabase _database;
 
@@ -27,41 +29,41 @@ namespace GymProgress.Api.Service
 
         }
 
-        public List<UserEntity> GetAllUser()
+        public List<User> GetAllUser()
         {
             var collection = _database.GetCollection<UserEntity>("users");
             List<UserEntity> users = collection.Find(Builders<UserEntity>.Filter.Empty).ToList();
 
-            return users;
+            return MapToList(users);
         }
-        public UserEntity GetUserById(string id)
+        public User GetUserById(string id)
         {
             var collection = _database.GetCollection<UserEntity>("users");
 
             var filter = MongoHelper.BuildFindByIdRequest<UserEntity>(id);
             UserEntity user = collection.Find(filter).FirstOrDefault();
 
-            return user;
+            return user.MapToDomain();
         }
 
-        public UserEntity GetUserByPseudo(string pseudo)
+        public User GetUserByPseudo(string pseudo)
         {
             var collection = _database.GetCollection<UserEntity>("users");
 
             var filter = MongoHelper.BuildFindByChampRequest<UserEntity>("Pseudo", pseudo);
             UserEntity user = collection.Find(filter).FirstOrDefault();
 
-            return user;
+            return user.MapToDomain();
         }
 
-        public UserEntity GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             var collection = _database.GetCollection<UserEntity>("users");
 
             var builder = MongoHelper.BuildFindByChampRequest<UserEntity>("Email", email);
             UserEntity user = collection.Find(builder).FirstOrDefault();
 
-            return user;
+            return user.MapToDomain();
         }
 
         public void DeleteUserById(string id)
@@ -102,5 +104,14 @@ namespace GymProgress.Api.Service
             collection.UpdateOne(filter, update);
         }
 
+        public List<User> MapToList(List<UserEntity> data)
+        {
+            var result = new List<User>();
+            foreach (var item in data)
+            {
+                result.Add(item.MapToDomain());
+            }
+            return result;
+        }
     }
 }
