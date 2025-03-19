@@ -1,11 +1,13 @@
 ﻿using GymProgress.Api.Interface;
+using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
+using GymProgress.Domain.Models;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
 {
-    public class ExerciceService : IExerciceService
+    public class ExerciceService : IExerciceService, IMapToList<ExerciceEntity, Exercice>
     {
 
         private readonly IMongoDatabase _database;
@@ -28,15 +30,15 @@ namespace GymProgress.Api.Service
             collection.InsertOne(exercice);
         }
 
-        public List<ExerciceEntity> GetAllExercice()
+        public List<Exercice> GetAllExercice()
         {
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
             List<ExerciceEntity> exercices = collection.Find(Builders<ExerciceEntity>.Filter.Empty).ToList();
 
-            return exercices;
+            return MapToList(exercices);
         }
 
-        public ExerciceEntity GetExerciceById(string id)
+        public Exercice GetExerciceById(string id)
         {
             if (_database == null)
             {
@@ -47,10 +49,10 @@ namespace GymProgress.Api.Service
 
             ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
-            return matching;
+            return matching.MapToDomain();
         }
 
-        public ExerciceEntity GetExerciceByName(string name)
+        public Exercice GetExerciceByName(string name)
         {
             if (_database == null)
             {
@@ -62,14 +64,15 @@ namespace GymProgress.Api.Service
 
             ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
-            return matching;
+            return matching.MapToDomain();
         }
 
         public void DeleteExerciceById(string id)
         {
-            ExerciceEntity matching = GetExerciceById(id);
-
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id);
+
+            ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
             if (matching != null)
             {
@@ -79,14 +82,15 @@ namespace GymProgress.Api.Service
 
         public void DeleteExerciceByName(string name)
         {
-            ExerciceEntity matching = GetExerciceByName(name);
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByChampRequest<ExerciceEntity>("Nom", name);
+
+            ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
+
             if (matching == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");
             }
-
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-            var filter = MongoHelper.BuildFindByChampRequest<ExerciceEntity>("Nom", name);
 
             collection.DeleteOne(filter);
         }
@@ -104,6 +108,16 @@ namespace GymProgress.Api.Service
                 Builders<ExerciceEntity>.Update.Set(f => f.Charge, charge));
 
             collection.UpdateOne(filter, update);
+        }
+
+        public List<Exercice> MapToList(List<ExerciceEntity> data)
+        {
+            var result = new List<Exercice>();
+            foreach (var item in data)
+            {
+                result.Add(item.MapToDomain());
+            }
+            return result;
         }
     }
 
