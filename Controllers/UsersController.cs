@@ -15,9 +15,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostUser")]
-        public void CreateUser(string pseudo, string email, string hashedPassword)
+        public void CreateUser([FromBody] User user)
         {
-            _service.CreateUser(pseudo, email, hashedPassword);
+            _service.CreateUser(user.Pseudo, user.Email, user.HashedPassword);
         }
 
         [HttpGet("GetAllUser")]
