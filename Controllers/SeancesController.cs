@@ -14,7 +14,7 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostSeance")]
-        public void CreateSeance(string name)
+        public void CreateSeance([FromBody] string name)
         {
             _service.CreateSeance(name);
         }
