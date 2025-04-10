@@ -30,6 +30,10 @@ namespace GymProgress.Api.Models
         {
             
         }
+        public ExerciceEntity(string nom)
+        {
+            Nom = nom;
+        }
         public ExerciceEntity(string nom, int repetition, int serie, float charge, DateTime date, string userId) 
                        
         {

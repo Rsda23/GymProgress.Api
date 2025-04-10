@@ -19,10 +19,16 @@ namespace GymProgress.Api.Controllers
             _logger = logger;
         }
 
-        [HttpPost("PostExercice")]
-        public void CreateExercice(string nom, int repetition, int serie, float charge, string userId)
+        [HttpPost("PostFullExercice")]
+        public void CreateFullExercice([FromBody] string nom, int repetition, int serie, float charge, string userId)
         {
-            _service.CreateExercice(nom, repetition, serie, charge, userId);
+            _service.CreateFullExercice(nom, repetition, serie, charge, userId);
+        }
+
+        [HttpPost("PostExercice")]
+        public void CreateExercice([FromBody] string nom)
+        {
+            _service.CreateExercice(nom);
         }
 
         [HttpGet("GetAllExercice")]
@@ -56,10 +62,34 @@ namespace GymProgress.Api.Controllers
             _service.DeleteExerciceByName(name);
         }
 
-        [HttpPut("PutExercice")]
-        public void ReplaceExercice(string id, string name, int repetition, int serie, float charge)
+        [HttpPut("PutAllExercice")]
+        public void ReplaceAllExercice(string id, string name, int repetition, int serie, float charge)
         {
-            _service.ReplaceExercice(id, name, repetition, serie, charge);
+            _service.ReplaceAllExercice(id, name, repetition, serie, charge);
+        }
+
+        [HttpPut("PutName")]
+        public void UpdateName(string exerciceId, int name)
+        {
+            _service.UpdateRepetition(exerciceId, name);
+        }
+
+        [HttpPut("PutRepetion")]
+        public void UpdateRepetition(string exerciceId, int repetition)
+        {
+            _service.UpdateRepetition(exerciceId, repetition);
+        }
+
+        [HttpPut("PutSerie")]
+        public void UpdateSerie(string exerciceId, int serie)
+        {
+            _service.UpdateRepetition(exerciceId, serie);
+        }
+
+        [HttpPut("PutCharge")]
+        public void UpdateCharge(string exerciceId, float charge)
+        {
+            _service.UpdateCharge(exerciceId, charge);
         }
 
     }
