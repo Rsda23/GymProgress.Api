@@ -51,7 +51,7 @@ namespace GymProgress.Api.Models
             {
                 foreach (var item in Exercices)
                 {
-                    result.Add(new Exercice(item.Nom, item.Repetition, item.Serie, item.Charge, item.Date, item.UserId));
+                    result.Add(new Exercice(item.Nom, item.UserId, item.SetDatas));
                 }
             }
             return result;

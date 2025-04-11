@@ -1,4 +1,5 @@
-﻿using GymProgress.Api.Interface.Map;
+﻿using GymProgress.Api.Entities;
+using GymProgress.Api.Interface.Map;
 using GymProgress.Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -15,16 +16,10 @@ namespace GymProgress.Api.Models
         public string ExerciceId { get; set; } = string.Empty;
         [BsonElement("Nom")]
         public string Nom { get; set; }
-        [BsonElement("Repetition")]
-        public int Repetition { get; set; }
-        [BsonElement("Serie")]
-        public int Serie { get; set; }
-        [BsonElement("Charge")]
-        public float Charge { get; set; }
-        [BsonElement("Date")]
-        public DateTime Date { get; set; }
         [BsonElement("UserId")]
         public string UserId { get; set; }
+        public List<SetData> SetDatas { get; set; } = [];
+
 
         public ExerciceEntity()
         {
@@ -34,15 +29,12 @@ namespace GymProgress.Api.Models
         {
             Nom = nom;
         }
-        public ExerciceEntity(string nom, int repetition, int serie, float charge, DateTime date, string userId) 
+        public ExerciceEntity(string nom, string userId, List<SetData> setDatas) 
                        
         {
             Nom = nom;
-            Repetition = repetition;
-            Serie = serie;
-            Charge = charge;
-            Date = date;
             UserId = userId;
+            SetDatas = setDatas;
         }
 
         public Exercice MapToDomain()
@@ -51,12 +43,22 @@ namespace GymProgress.Api.Models
             {
                 ExerciceId = Id,
                 Nom = Nom,
-                Repetition = Repetition,
-                Serie = Serie,
-                Charge = Charge,
-                Date = Date,
-                UserId = UserId
+                UserId = UserId,
+                SetDatas = SetDatas
             };
+            return result;
+        }
+
+        private List<SetData> MapSetDatas()
+        {
+            var result = new List<Exercice>();
+            if (SetDatas != null)
+            {
+                foreach (var item in SetDatas)
+                {
+                    result.Add(new SetData(item.Repetition, item.Serie, item.Charge, item.Date));
+                }
+            }
             return result;
         }
 
