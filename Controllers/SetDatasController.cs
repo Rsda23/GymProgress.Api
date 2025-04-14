@@ -21,43 +21,43 @@ namespace GymProgress.Api.Controllers
             _service.CreateFullSetData(exerciceId, repetition, serie, charge);
         }
 
-        [HttpPost("GetSetDataById")]
+        [HttpGet("GetSetDataById")]
         public SetData GetSetDataById(string id)
         {
            return _service.GetSetDataById(id);
         }
 
-        [HttpPost("GetSetDataByExerciceId")]
+        [HttpGet("GetSetDataByExerciceId")]
         public SetData GetSetDataByExerciceId(string exerciceId)
         {
             return _service.GetSetDataByExerciceId(exerciceId);
         }
 
-        [HttpPost("DeleteSetDataById")]
+        [HttpDelete("DeleteSetDataById")]
         public void DeleteSetDataById(string id)
         {
             _service.DeleteSetDataById(id);
         }
 
-        [HttpPost("UpdateSetData")]
+        [HttpPut("UpdateSetData")]
         public void UpdateSetData(string setDataId, int repetition, int serie, float charge)
         {
             _service.UpdateSetData(setDataId, repetition, serie, charge);
         }
 
-        [HttpPost("UpdateRepetition")]
+        [HttpPut("UpdateRepetition")]
         public void UpdateRepetition(string setdataId, int repetition)
         {
             _service.UpdateRepetition(setdataId, repetition);
         }
 
-        [HttpPost("UpdateSerie")]
+        [HttpPut("UpdateSerie")]
         public void UpdateSerie(string setdataId, int serie)
         {
             _service.UpdateSerie(setdataId, serie);
         }
 
-        [HttpPost("UpdateCharge")]
+        [HttpPut("UpdateCharge")]
         public void UpdateCharge(string setdataId, float charge)
         {
             _service.UpdateCharge(setdataId, charge);
