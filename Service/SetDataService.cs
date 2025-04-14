@@ -10,7 +10,7 @@ namespace GymProgress.Api.Service
     public class SetDataService : ISetDataService, IMapToList<SetDataEntity, SetData>
     {
         private readonly IMongoDatabase _database;
-        private SetDataService(MongoHelper mongoHelpers)
+        public SetDataService(MongoHelper mongoHelpers)
         {
             _database = mongoHelpers.GetDatabase();
         }

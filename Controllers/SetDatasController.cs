@@ -16,9 +16,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostFullSetData")]
-        public void CreateFullSetData([FromBody] string exerciceId, int repetition, int serie, float charge)
+        public void CreateFullSetData([FromBody] SetData setData)
         {
-            _service.CreateFullSetData(exerciceId, repetition, serie, charge);
+            _service.CreateFullSetData(setData.ExerciceId, setData.Repetition, setData.Serie, setData.Charge);
         }
 
         [HttpGet("GetSetDataById")]

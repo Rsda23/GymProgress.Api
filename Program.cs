@@ -1,6 +1,7 @@
 using GymProgress.Api.Interface;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Api.Service;
+using GymProgress.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IExerciceService, ExerciceService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISeanceService, SeanceService>();
+builder.Services.AddTransient<ISetDataService, SetDataService>();
 builder.Services.AddTransient<MongoHelper>();
 
 var app = builder.Build();
