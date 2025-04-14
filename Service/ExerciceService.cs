@@ -17,19 +17,6 @@ namespace GymProgress.Api.Service
             _database = mongoHelpers.GetDatabase();
         }
 
-        public void CreateFullExercice(string nom, int repetition, int serie, float charge, string userId)
-        {
-            DateTime date = DateTime.Now;
-            ExerciceEntity exercice = new ExerciceEntity(nom, repetition, serie, charge, date, userId);
-
-            if (_database == null)
-            {
-                throw new InvalidOperationException("Error collection MongoDB");
-            }
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-            collection.InsertOne(exercice);
-        }
-
         public void CreateExercice(string nom)
         {
             DateTime date = DateTime.Now;
@@ -50,7 +37,6 @@ namespace GymProgress.Api.Service
 
             return MapToList(exercices);
         }
-
         public Exercice GetExerciceById(string id)
         {
             if (_database == null)
@@ -64,7 +50,6 @@ namespace GymProgress.Api.Service
 
             return matching.MapToDomain();
         }
-
         public Exercice GetExerciceByName(string name)
         {
             if (_database == null)
@@ -92,7 +77,6 @@ namespace GymProgress.Api.Service
                 collection.DeleteOne(MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id));
             }
         }
-
         public void DeleteExerciceByName(string name)
         {
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
@@ -108,64 +92,14 @@ namespace GymProgress.Api.Service
             collection.DeleteOne(filter);
         }
 
-        public void ReplaceAllExercice(string id, string name, int repetition, int serie, float charge)
-        {
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-
-            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id);
-
-            var update = Builders<ExerciceEntity>.Update.Combine(
-                Builders<ExerciceEntity>.Update.Set(f => f.Nom, name),
-                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, repetition),
-                Builders<ExerciceEntity>.Update.Set(f => f.Serie, serie),
-                Builders<ExerciceEntity>.Update.Set(f => f.Charge, charge));
-
-            collection.UpdateOne(filter, update);
-        }
-
-        public void UpdateName(string exerciceId, int name)
+        public void UpdateName(string exerciceId, string name)
         {
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
 
             var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
 
             var update = Builders<ExerciceEntity>.Update.Combine(
-                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, name));
-
-            collection.UpdateOne(filter, update);
-        }
-        public void UpdateRepetition(string exerciceId, int repetition)
-        {
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-
-            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
-
-            var update = Builders<ExerciceEntity>.Update.Combine(
-                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, repetition));
-
-            collection.UpdateOne(filter, update);
-        }
-
-        public void UpdateSerie(string exerciceId, int serie)
-        {
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-
-            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
-
-            var update = Builders<ExerciceEntity>.Update.Combine(
-                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, serie));
-
-            collection.UpdateOne(filter, update);
-        }
-
-        public void UpdateCharge(string exerciceId, float charge)
-        {
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-
-            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
-
-            var update = Builders<ExerciceEntity>.Update.Combine(
-                Builders<ExerciceEntity>.Update.Set(f => f.Repetition, charge));
+                Builders<ExerciceEntity>.Update.Set(f => f.Nom, name));
 
             collection.UpdateOne(filter, update);
         }

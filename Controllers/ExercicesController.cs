@@ -19,12 +19,6 @@ namespace GymProgress.Api.Controllers
             _logger = logger;
         }
 
-        [HttpPost("PostFullExercice")]
-        public void CreateFullExercice([FromBody] string nom, int repetition, int serie, float charge, string userId)
-        {
-            _service.CreateFullExercice(nom, repetition, serie, charge, userId);
-        }
-
         [HttpPost("PostExercice")]
         public void CreateExercice([FromBody] string nom)
         {
@@ -62,35 +56,10 @@ namespace GymProgress.Api.Controllers
             _service.DeleteExerciceByName(name);
         }
 
-        [HttpPut("PutAllExercice")]
-        public void ReplaceAllExercice(string id, string name, int repetition, int serie, float charge)
-        {
-            _service.ReplaceAllExercice(id, name, repetition, serie, charge);
-        }
-
         [HttpPut("PutName")]
-        public void UpdateName(string exerciceId, int name)
+        public void UpdateName(string exerciceId, string name)
         {
-            _service.UpdateRepetition(exerciceId, name);
+            _service.UpdateName(exerciceId, name);
         }
-
-        [HttpPut("PutRepetion")]
-        public void UpdateRepetition(string exerciceId, int repetition)
-        {
-            _service.UpdateRepetition(exerciceId, repetition);
-        }
-
-        [HttpPut("PutSerie")]
-        public void UpdateSerie(string exerciceId, int serie)
-        {
-            _service.UpdateRepetition(exerciceId, serie);
-        }
-
-        [HttpPut("PutCharge")]
-        public void UpdateCharge(string exerciceId, float charge)
-        {
-            _service.UpdateCharge(exerciceId, charge);
-        }
-
     }
 }
