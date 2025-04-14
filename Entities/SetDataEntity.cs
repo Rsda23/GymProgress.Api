@@ -13,6 +13,8 @@ namespace GymProgress.Api.Entities
         public string Id { get; set; }
         [BsonElement("setDataId")]
         public string SetDataId { get; set; } = string.Empty;
+        [BsonElement("exerciceId")]
+        public string ExerciceId { get; set; } = string.Empty;
         [BsonElement("Repetition")]
         public int Repetition { get; set; }
         [BsonElement("Serie")]
@@ -26,9 +28,9 @@ namespace GymProgress.Api.Entities
         {
 
         }
-        public SetDataEntity(int repetition, int serie, float charge, DateTime date)
-
+        public SetDataEntity(string exercicdeId, int repetition, int serie, float charge, DateTime date)
         {
+            ExerciceId = exercicdeId;
             Repetition = repetition;
             Serie = serie;
             Charge = charge;
