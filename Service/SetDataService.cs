@@ -1,6 +1,7 @@
 ﻿using GymProgress.Api.Entities;
 using GymProgress.Api.Interface;
 using GymProgress.Api.Interface.Map;
+using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
 using MongoDB.Driver;
@@ -10,9 +11,11 @@ namespace GymProgress.Api.Service
     public class SetDataService : ISetDataService, IMapToList<SetDataEntity, SetData>
     {
         private readonly IMongoDatabase _database;
-        public SetDataService(MongoHelper mongoHelpers)
+        private readonly IExerciceService _service;
+        public SetDataService(MongoHelper mongoHelpers, IExerciceService service)
         {
             _database = mongoHelpers.GetDatabase();
+            _service = service;
         }
 
         public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge)
@@ -26,6 +29,8 @@ namespace GymProgress.Api.Service
             }
             var collection = _database.GetCollection<SetDataEntity>("setdatas");
             collection.InsertOne(setData);
+
+            _service.AddSetToExercice(exerciceId, setData);
         }
 
         public SetData GetSetDataById(string id)
@@ -55,17 +60,24 @@ namespace GymProgress.Api.Service
             return matching.MapToDomain();
         }
 
-        public void DeleteSetDataById(string id)
+        public async void DeleteSetDataById(string setDataId)
         {
             var collection = _database.GetCollection<SetDataEntity>("setdatas");
-            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(id);
+            var exerciceCollection = _database.GetCollection<ExerciceEntity>("exercices");
+
+            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(setDataId);
 
             SetDataEntity matching = collection.Find(filter).FirstOrDefault();
 
             if (matching != null)
             {
-                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<SetDataEntity>(id));
+                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<SetDataEntity>(setDataId));
             }
+
+            await exerciceCollection.UpdateManyAsync(
+                Builders<ExerciceEntity>.Filter.ElemMatch(e => e.SetDatas, sd => sd.Id == setDataId),
+                Builders<ExerciceEntity>.Update.PullFilter(e => e.SetDatas, sd => sd.Id == setDataId)
+);
         }
 
         public void UpdateSetData(string setDataId, int repetition, int serie, float charge)

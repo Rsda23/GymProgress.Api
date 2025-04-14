@@ -25,6 +25,12 @@ namespace GymProgress.Api.Controllers
             _service.CreateExercice(nom);
         }
 
+        [HttpPost("PostSetDataToExerciceById")]
+        public void AddSetDataById(string exerciceId, List<string> setDataId)
+        {
+            _service.AddSetDataById(exerciceId, setDataId);
+        }
+
         [HttpGet("GetAllExercice")]
         public List<Exercice> GetAllExercice()
         {
@@ -48,12 +54,6 @@ namespace GymProgress.Api.Controllers
         public void DeleteExerciceById(string id)
         {
             _service.DeleteExerciceById(id);
-        }
-
-        [HttpDelete("DeleteExerciceByName")]
-        public void DeleteExerciceByName(string name)
-        {
-            _service.DeleteExerciceByName(name);
         }
 
         [HttpPut("PutName")]

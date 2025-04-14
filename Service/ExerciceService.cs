@@ -1,4 +1,5 @@
-﻿using GymProgress.Api.Interface;
+﻿using GymProgress.Api.Entities;
+using GymProgress.Api.Interface;
 using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
@@ -28,6 +29,37 @@ namespace GymProgress.Api.Service
             }
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
             collection.InsertOne(exercice);
+        }
+
+        public void AddSetDataById(string exerciceId, List<string> setDataId)
+        {
+            var collectionSetdata = _database.GetCollection<SetDataEntity>("setdatas");
+            var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
+
+            ExerciceEntity oldExercice = collectionExercice.Find(filter).FirstOrDefault();
+
+            List<SetDataEntity> oldSetData = oldExercice.SetDatas;
+            List<SetDataEntity> setDatas = new List<SetDataEntity>();
+
+            if (setDataId != null && setDataId.Count() > 0)
+            {
+                foreach (var id in setDataId)
+                {
+                    var filterSetData = MongoHelper.BuildFindByIdRequest<SetDataEntity>(id);
+                    var setData = collectionSetdata.Find(filterSetData).FirstOrDefault();
+
+                    if (setData != null)
+                    {
+                        setDatas.Add(setData);
+                    }
+                }
+            }
+
+            oldSetData.AddRange(setDatas);
+
+            var update = Builders<ExerciceEntity>.Update.Set(f => f.SetDatas, oldSetData);
+            collectionExercice.UpdateOne(filter, update);
         }
 
         public List<Exercice> GetAllExercice()
@@ -65,31 +97,20 @@ namespace GymProgress.Api.Service
             return matching.MapToDomain();
         }
 
-        public void DeleteExerciceById(string id)
+        public async void DeleteExerciceById(string exerciceId)
         {
             var collection = _database.GetCollection<ExerciceEntity>("exercices");
-            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id);
+            var setDataCollection = _database.GetCollection<SetDataEntity>("setdatas");
+            var filter = MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId);
 
             ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
 
             if (matching != null)
             {
-                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<ExerciceEntity>(id));
-            }
-        }
-        public void DeleteExerciceByName(string name)
-        {
-            var collection = _database.GetCollection<ExerciceEntity>("exercices");
-            var filter = MongoHelper.BuildFindByChampRequest<ExerciceEntity>("Nom", name);
-
-            ExerciceEntity matching = collection.Find(filter).FirstOrDefault();
-
-            if (matching == null)
-            {
-                throw new InvalidOperationException("Error collection MongoDB");
+                collection.DeleteOne(MongoHelper.BuildFindByIdRequest<ExerciceEntity>(exerciceId));
             }
 
-            collection.DeleteOne(filter);
+            await setDataCollection.DeleteManyAsync(s => s.ExerciceId == exerciceId);
         }
 
         public void UpdateName(string exerciceId, string name)
@@ -102,6 +123,16 @@ namespace GymProgress.Api.Service
                 Builders<ExerciceEntity>.Update.Set(f => f.Nom, name));
 
             collection.UpdateOne(filter, update);
+        }
+
+        public async Task AddSetToExercice(string exerciceId, SetDataEntity setData)
+        {
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+
+            var filter = Builders<ExerciceEntity>.Filter.Eq(e => e.Id, exerciceId);
+            var update = Builders<ExerciceEntity>.Update.Push(e => e.SetDatas, setData);
+
+            await collection.UpdateOneAsync(filter, update);
         }
 
         public List<Exercice> MapToList(List<ExerciceEntity> data)

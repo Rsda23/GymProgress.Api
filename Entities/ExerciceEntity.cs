@@ -11,9 +11,6 @@ namespace GymProgress.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
-        [BsonElement("exerciceId")]
-        public string ExerciceId { get; set; } = string.Empty;
         [BsonElement("Nom")]
         public string Nom { get; set; }
         [BsonElement("UserId")]

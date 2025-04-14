@@ -10,8 +10,11 @@ namespace GymProgress.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        [BsonElement("Pseudo")]
         public string Pseudo { get; set; }
+        [BsonElement("Email")]
         public string Email { get; set; }
+        [BsonElement("HashedPassword")]
         public string HashedPassword { get; set; }
 
         public UserEntity(string pseudo, string email, string hashedPassword)

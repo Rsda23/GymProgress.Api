@@ -10,7 +10,9 @@ namespace GymProgress.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        [BsonElement("Nom")]
         public string Name { get; set; }
+        [BsonElement("Exercices")]
         public List<ExerciceEntity> Exercices { get; set; } = [];
 
         public SeanceEntity()
@@ -51,7 +53,8 @@ namespace GymProgress.Api.Models
             {
                 foreach (var item in Exercices)
                 {
-                    result.Add(new Exercice(item.Nom, item.UserId, item.SetDatas));
+                    var mapSetDatas = item.SetDatas.Select(x => x.MapToDomain()).ToList();
+                    result.Add(new Exercice(item.Nom, item.UserId, mapSetDatas));
                 }
             }
             return result;
