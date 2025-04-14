@@ -44,14 +44,14 @@ namespace GymProgress.Api.Models
                 ExerciceId = Id,
                 Nom = Nom,
                 UserId = UserId,
-                SetDatas = SetDatas
+                SetDatas = MapSetDatas()
             };
             return result;
         }
 
         private List<SetData> MapSetDatas()
         {
-            var result = new List<Exercice>();
+            var result = new List<SetData>();
             if (SetDatas != null)
             {
                 foreach (var item in SetDatas)

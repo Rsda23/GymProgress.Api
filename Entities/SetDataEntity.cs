@@ -35,13 +35,15 @@ namespace GymProgress.Api.Entities
             Date = date;
         }
 
-        public Seance MapToDomain()
+        public SetData MapToDomain()
         {
-            var result = new Seance
+            var result = new SetData
             {
-                SeanceId = Id,
-                Name = Name,
-                Exercices = MapExercices()
+                SetDataId = Id,
+                Repetition = Repetition,
+                Serie = Serie,
+                Charge = Charge,
+                Date = Date
             };
 
             return result;
