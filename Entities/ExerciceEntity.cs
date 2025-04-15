@@ -11,10 +11,11 @@ namespace GymProgress.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonElement("Nom")]
+        [BsonElement("nom")]
         public string Nom { get; set; }
-        [BsonElement("UserId")]
+        [BsonElement("userId")]
         public string UserId { get; set; }
+        [BsonElement("setDatas")]
         public List<SetDataEntity> SetDatas { get; set; } = [];
 
 

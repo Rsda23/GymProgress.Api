@@ -10,9 +10,9 @@ namespace GymProgress.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonElement("Name")]
+        [BsonElement("name")]
         public string Name { get; set; }
-        [BsonElement("Exercices")]
+        [BsonElement("exercices")]
         public List<ExerciceEntity> Exercices { get; set; } = [];
 
         public SeanceEntity()
