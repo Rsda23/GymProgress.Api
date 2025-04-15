@@ -4,6 +4,7 @@ using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
@@ -53,11 +54,11 @@ namespace GymProgress.Api.Service
                 throw new InvalidOperationException("Error collection MongoDB");
             }
             var collection = _database.GetCollection<SetDataEntity>("setdatas");
-            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(exerciceId);
+            var filter = Builders<SetDataEntity>.Filter.Eq(s => s.ExerciceId, exerciceId);
 
             SetDataEntity matching = collection.Find(filter).FirstOrDefault();
 
-            return matching.MapToDomain();
+            return matching?.MapToDomain();
         }
 
         public async void DeleteSetDataById(string setDataId)
