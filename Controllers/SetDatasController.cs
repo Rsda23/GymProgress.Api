@@ -40,9 +40,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPut("UpdateSetData")]
-        public void UpdateSetData(string setDataId, int repetition, int serie, float charge)
+        public void UpdateSetData([FromBody] SetData setData)
         {
-            _service.UpdateSetData(setDataId, repetition, serie, charge);
+            _service.UpdateSetData(setData);
         }
 
         [HttpPut("UpdateRepetition")]

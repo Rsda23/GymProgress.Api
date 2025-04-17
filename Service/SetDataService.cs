@@ -81,16 +81,16 @@ namespace GymProgress.Api.Service
 );
         }
 
-        public void UpdateSetData(string setDataId, int repetition, int serie, float charge)
+        public void UpdateSetData(SetData setData)
         {
             var collection = _database.GetCollection<SetDataEntity>("setdatas");
 
-            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(setDataId);
+            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(setData.SetDataId);
 
             var update = Builders<SetDataEntity>.Update.Combine(
-                Builders<SetDataEntity>.Update.Set(f => f.Repetition, repetition),
-                Builders<SetDataEntity>.Update.Set(f => f.Serie, serie),
-                Builders<SetDataEntity>.Update.Set(f => f.Charge, charge));
+                Builders<SetDataEntity>.Update.Set(f => f.Repetition, setData.Repetition),
+                Builders<SetDataEntity>.Update.Set(f => f.Serie, setData.Serie),
+                Builders<SetDataEntity>.Update.Set(f => f.Charge, setData.Charge));
 
             collection.UpdateOne(filter, update);
         }
