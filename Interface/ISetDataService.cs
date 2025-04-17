@@ -12,5 +12,6 @@ namespace GymProgress.Api.Interface
         public void UpdateRepetition(string setdataId, int repetition);
         public void UpdateSerie(string setdataId, int serie);
         public void UpdateCharge(string setdataId, float charge);
+        public void ReplaceSetData(SetData setData);
     }
 }

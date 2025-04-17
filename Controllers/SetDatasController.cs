@@ -62,5 +62,11 @@ namespace GymProgress.Api.Controllers
         {
             _service.UpdateCharge(setdataId, charge);
         }
+
+        [HttpPut("ReplaceSetData")]
+        public void ReplaceSetData([FromBody] SetData setData)
+        {
+            _service.ReplaceSetData(setData);
+        }
     }
 }

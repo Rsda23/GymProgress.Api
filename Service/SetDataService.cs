@@ -128,6 +128,30 @@ namespace GymProgress.Api.Service
             collection.UpdateOne(filter, update);
         }
 
+        public void ReplaceSetData(SetData setData)
+        {
+            var collection = _database.GetCollection<SetDataEntity>("setdatas");
+            var filter = MongoHelper.BuildFindByIdRequest<SetDataEntity>(setData.SetDataId);
+
+            var existing = collection.Find(filter).FirstOrDefault();
+
+            if (setData.Repetition != existing.Repetition)
+            {
+                existing.Repetition = setData.Repetition;
+            }
+            if (setData.Serie != existing.Serie)
+            {
+                existing.Serie = setData.Serie;
+            }
+            if (setData.Charge != existing.Charge)
+            {
+                existing.Charge = setData.Charge;
+            }
+
+
+            collection.ReplaceOne(filter, existing);
+        }
+
         public List<SetData> MapToList(List<SetDataEntity> data)
         {
             var result = new List<SetData>();
