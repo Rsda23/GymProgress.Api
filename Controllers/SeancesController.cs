@@ -32,7 +32,7 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostExerciceToSeanceById")]
-        public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)
+        public void AddExerciceToSeanceById([FromQuery] string seanceId, [FromBody] List<string> execiceId)
         {
             _service.AddExerciceToSeanceById(seanceId, execiceId);
         }
