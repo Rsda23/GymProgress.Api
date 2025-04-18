@@ -35,6 +35,16 @@ namespace GymProgress.Api.Entities
             Date = date;
         }
 
+        public SetDataEntity(string id, string exerciceId, int repetition, int serie, float charge, DateTime date)
+        {
+            Id = id;
+            ExerciceId = exerciceId;
+            Repetition = repetition;
+            Serie = serie;
+            Charge = charge;
+            Date = date;
+        }
+
         public SetData MapToDomain()
         {
             var result = new SetData
