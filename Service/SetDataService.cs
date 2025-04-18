@@ -135,21 +135,30 @@ namespace GymProgress.Api.Service
 
             var existing = collection.Find(filter).FirstOrDefault();
 
+            bool changed = false;
+
             if (setData.Repetition != existing.Repetition)
             {
+                changed = true;
                 existing.Repetition = setData.Repetition;
             }
             if (setData.Serie != existing.Serie)
             {
+                changed = true;
                 existing.Serie = setData.Serie;
             }
             if (setData.Charge != existing.Charge)
             {
+                changed = true;
                 existing.Charge = setData.Charge;
             }
 
+            if (changed)
+            {
+                collection.ReplaceOne(filter, existing);
 
-            collection.ReplaceOne(filter, existing);
+                _service.ReplaceSetToExercice(setData.ExerciceId, existing);
+            }
         }
 
         public List<SetData> MapToList(List<SetDataEntity> data)

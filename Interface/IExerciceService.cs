@@ -14,5 +14,6 @@ namespace GymProgress.Api.Interface
         public void DeleteExerciceById(string id);
         public Task AddSetToExercice(string exerciceId, SetDataEntity setData);
         public void UpdateName(string exerciceId, string name);
+        public Task ReplaceSetToExercice(string exerciceId, SetDataEntity setData);
     }
 }

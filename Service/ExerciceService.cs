@@ -4,15 +4,14 @@ using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
 {
     public class ExerciceService : IExerciceService, IMapToList<ExerciceEntity, Exercice>
     {
-
         private readonly IMongoDatabase _database;
-
         public ExerciceService(MongoHelper mongoHelpers)
         {
             _database = mongoHelpers.GetDatabase();
@@ -133,6 +132,26 @@ namespace GymProgress.Api.Service
             var update = Builders<ExerciceEntity>.Update.Push(e => e.SetDatas, setData);
 
             await collection.UpdateOneAsync(filter, update);
+        }
+
+        public async Task ReplaceSetToExercice(string exerciceId, SetDataEntity setData)
+        {
+            var collection = _database.GetCollection<ExerciceEntity>("exercices");
+
+            var filter = Builders<ExerciceEntity>.Filter.Eq(e => e.Id, exerciceId);
+            var update = Builders<ExerciceEntity>.Update.Set("SetDatas.$[elem]", setData);
+
+            ObjectId objectId = ObjectId.Parse(setData.Id);
+
+            var arrayFilter = new[]
+            {
+                new BsonDocumentArrayFilterDefinition<BsonDocument>(new BsonDocument("elem._id", 
+                new BsonDocument("$eq", objectId)))
+            };
+
+            var options = new UpdateOptions { ArrayFilters = arrayFilter };
+
+            await collection.UpdateOneAsync(filter, update, options);
         }
 
         public List<Exercice> MapToList(List<ExerciceEntity> data)
