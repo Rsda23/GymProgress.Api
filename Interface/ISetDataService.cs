@@ -4,7 +4,7 @@ namespace GymProgress.Api.Interface
 {
     public interface ISetDataService
     {
-        public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge);
+        public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge, string userId);
         public SetData GetSetDataById(string id);
         public SetData GetSetDataByExerciceId(string exerciceId);
         public void DeleteSetDataById(string id);

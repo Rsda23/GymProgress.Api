@@ -4,9 +4,9 @@ namespace GymProgress.Api.Interface
 {
     public interface ISeanceService
     {
-        public void CreateSeance(string name);
-        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId);
-        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName);
+        public void CreateSeance(string name, string userId);
+        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId, string userId);
+        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName, string userId);
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId);
         public void AddExerciceToSeanceByName(string seanceId, List<string> execiceName);
         public List<Seance> GetAllSeance();

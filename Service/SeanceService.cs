@@ -4,7 +4,6 @@ using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
 using MongoDB.Driver;
-using System.Xml.Linq;
 
 namespace GymProgress.Api.Service
 {
@@ -19,15 +18,15 @@ namespace GymProgress.Api.Service
             _exerciceService = exerciceService;
         }
 
-        public void CreateSeance(string name)
+        public void CreateSeance(string name, string userId)
         {
-            SeanceEntity seance = new SeanceEntity(name);
+            SeanceEntity seance = new SeanceEntity(name, userId);
 
             var collection = _database.GetCollection<SeanceEntity>("seances");
             collection.InsertOne(seance);
 
         }
-        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId)
+        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId, string userId)
         {
             var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
@@ -47,12 +46,12 @@ namespace GymProgress.Api.Service
                 }
             }
 
-            SeanceEntity seance = new SeanceEntity(nameSeance, exercices);
+            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId);
 
             collectionSeance.InsertOne(seance);
 
         }
-        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName)
+        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName, string userId)
         {
             var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
@@ -73,7 +72,7 @@ namespace GymProgress.Api.Service
                 }
             }
             
-            SeanceEntity seance = new SeanceEntity(nameSeance, exercices);
+            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId);
             collectionSeance.InsertOne(seance);
         }
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)

@@ -1,5 +1,4 @@
 ﻿using GymProgress.Api.Interface;
-using GymProgress.Api.Models;
 using GymProgress.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 

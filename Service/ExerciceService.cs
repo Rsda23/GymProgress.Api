@@ -17,10 +17,10 @@ namespace GymProgress.Api.Service
             _database = mongoHelpers.GetDatabase();
         }
 
-        public void CreateExercice(string nom)
+        public void CreateExercice(string nom, string userId)
         {
             DateTime date = DateTime.Now;
-            ExerciceEntity exercice = new ExerciceEntity(nom);
+            ExerciceEntity exercice = new ExerciceEntity(nom, userId);
 
             if (_database == null)
             {

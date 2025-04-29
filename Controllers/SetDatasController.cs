@@ -1,6 +1,5 @@
 ﻿using GymProgress.Api.Interface;
 using GymProgress.Domain.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymProgress.Api.Controllers
@@ -18,7 +17,7 @@ namespace GymProgress.Api.Controllers
         [HttpPost("PostFullSetData")]
         public void CreateFullSetData([FromBody] SetData setData)
         {
-            _service.CreateFullSetData(setData.ExerciceId, setData.Repetition, setData.Serie, setData.Charge);
+            _service.CreateFullSetData(setData.ExerciceId, setData.Repetition, setData.Serie, setData.Charge, setData.UserId);
         }
 
         [HttpGet("GetSetDataById")]

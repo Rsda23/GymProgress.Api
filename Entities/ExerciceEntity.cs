@@ -27,6 +27,11 @@ namespace GymProgress.Api.Models
         {
             Nom = nom;
         }
+        public ExerciceEntity(string nom, string userId)
+        {
+            Nom = nom;
+            UserId = userId;
+        }
         public ExerciceEntity(string nom, string userId, List<SetDataEntity> setDatas) 
                        
         {

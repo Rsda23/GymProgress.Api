@@ -4,7 +4,6 @@ using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GymProgress.Api.Service
@@ -19,10 +18,10 @@ namespace GymProgress.Api.Service
             _service = service;
         }
 
-        public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge)
+        public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge, string userId)
         {
             DateTime date = DateTime.Now;
-            SetDataEntity setData = new SetDataEntity(exerciceId, repetition, serie, charge, date);
+            SetDataEntity setData = new SetDataEntity(exerciceId, repetition, serie, charge, date, userId);
 
             if (_database == null)
             {

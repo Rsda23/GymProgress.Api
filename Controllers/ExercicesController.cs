@@ -1,5 +1,4 @@
 using GymProgress.Api.Interface;
-using GymProgress.Api.Models;
 using GymProgress.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +19,9 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostExercice")]
-        public void CreateExercice([FromBody] string nom)
+        public void CreateExercice([FromBody] Exercice exercice)
         {
-            _service.CreateExercice(nom);
+            _service.CreateExercice(exercice.Nom, exercice.UserId);
         }
 
         [HttpPost("PostSetDataToExerciceById")]

@@ -14,21 +14,21 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpPost("PostSeance")]
-        public void CreateSeance([FromBody] string name)
+        public void CreateSeance([FromBody] Seance seance)
         {
-            _service.CreateSeance(name);
+            _service.CreateSeance(seance.Name, seance.UserId);
         }
 
         [HttpPost("PostSeanceWithExerciceId")]
-        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId)
+        public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId, string userId)
         {
-            _service.CreateSeanceWithExerciceId(nameSeance, exerciceId);
+            _service.CreateSeanceWithExerciceId(nameSeance, exerciceId, userId);
         }
 
         [HttpPost("PostSeanceWithExerciceName")]
-        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName)
+        public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName, string userId)
         {
-            _service.CreateSeanceWithExerciceName(nameSeance, exerciceName);
+            _service.CreateSeanceWithExerciceName(nameSeance, exerciceName, userId);
         }
 
         [HttpPost("PostExerciceToSeanceById")]
