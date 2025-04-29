@@ -2,6 +2,7 @@
 using GymProgress.Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.Json.Serialization;
 
 namespace GymProgress.Api.Models
 {
@@ -14,6 +15,8 @@ namespace GymProgress.Api.Models
         public string Name { get; set; }
         [BsonElement("exercices")]
         public List<ExerciceEntity> Exercices { get; set; } = [];
+        [JsonPropertyName("userId")]
+        public string UserId { get; set; }
 
         public SeanceEntity()
         {
@@ -25,6 +28,12 @@ namespace GymProgress.Api.Models
             Name = name;
             Exercices = exercices;
         }
+        public SeanceEntity(string name, List<ExerciceEntity> exercices, string userId)
+        {
+            Name = name;
+            Exercices = exercices;
+            UserId = userId;
+        }
         public SeanceEntity(List<ExerciceEntity> exercices)
         {
             Exercices = exercices;
@@ -33,6 +42,11 @@ namespace GymProgress.Api.Models
         {
             Name = name;
         }
+        public SeanceEntity(string name, string userId)
+        {
+            Name = name;
+            UserId = userId;
+        }
 
         public Seance MapToDomain()
         {
@@ -40,7 +54,8 @@ namespace GymProgress.Api.Models
             {
                 SeanceId = Id,
                 Name = Name,
-                Exercices = MapExercices()
+                Exercices = MapExercices(),
+                UserId = UserId
             };
 
             return result;

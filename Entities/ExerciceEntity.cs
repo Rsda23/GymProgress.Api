@@ -59,20 +59,5 @@ namespace GymProgress.Api.Models
             }
             return result;
         }
-
-        //public Exercice Map()
-        //{
-        //    Exercice result = new Exercice
-        //    {
-        //        ExerciceId = Id,
-        //        Nom = Nom,
-        //        Repetition = Repetition,
-        //        Serie = Serie,
-        //        Charge = Charge,
-        //        Date = Date,
-        //        UserId = UserId
-        //    };
-        //    return result;
-        //}
     }
 }
