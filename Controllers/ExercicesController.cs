@@ -37,14 +37,14 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetExerciceById")]
-        public Exercice GetExerciceById(string id)
+        public Exercice GetExerciceById([FromQuery] string id)
         {
             return _service.GetExerciceById(id);
                 
         }
 
         [HttpGet("GetExerciceByName")]
-        public Exercice GetExerciceByName(string name)
+        public Exercice GetExerciceByName([FromQuery] string name)
         {
             return _service.GetExerciceByName(name);
         }
@@ -54,7 +54,7 @@ namespace GymProgress.Api.Controllers
             return _service.GetExercicePublic();
         }
         [HttpGet("GetExerciceUserId")]
-        public List<Exercice> GetExerciceUserId(string userId)
+        public List<Exercice> GetExerciceUserId([FromQuery] string userId)
         {
             return _service.GetExerciceUserId(userId);
         }
