@@ -48,6 +48,16 @@ namespace GymProgress.Api.Controllers
         {
             return _service.GetExerciceByName(name);
         }
+        [HttpGet("GetExercicePublic")]
+        public List<Exercice> GetExercicePublic()
+        {
+            return _service.GetExercicePublic();
+        }
+        [HttpGet("GetExerciceUserId")]
+        public List<Exercice> GetExerciceUserId(string userId)
+        {
+            return _service.GetExerciceUserId(userId);
+        }
 
         [HttpDelete("DeleteExerciceById")]
         public void DeleteExerciceById(string id)

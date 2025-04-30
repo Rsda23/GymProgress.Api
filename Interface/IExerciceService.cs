@@ -10,6 +10,8 @@ namespace GymProgress.Api.Interface
         public List<Exercice> GetAllExercice();
         public Exercice GetExerciceById(string id);
         public Exercice GetExerciceByName(string name);
+        public List<Exercice> GetExercicePublic();
+        public List<Exercice> GetExerciceUserId(string userId);
         public void DeleteExerciceById(string id);
         public Task AddSetToExercice(string exerciceId, SetDataEntity setData);
         public void UpdateName(string exerciceId, string name);

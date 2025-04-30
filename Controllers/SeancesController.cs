@@ -61,6 +61,18 @@ namespace GymProgress.Api.Controllers
             return _service.GetSeanceByName(name);
         }
 
+        [HttpGet("GetSeanceByUserId")]
+        public List<Seance> GetSeanceByUserId(string userId)
+        {
+            return _service.GetSeanceByUserId(userId);
+        }
+
+        [HttpGet("GetSeancePublic")]
+        public List<Seance> GetSeancePublic()
+        {
+            return _service.GetSeancePublic();
+        }
+
         [HttpDelete("DeleteSeanceById")]
         public void DeleteSeanceById(string id)
         {

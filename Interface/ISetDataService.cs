@@ -7,6 +7,7 @@ namespace GymProgress.Api.Interface
         public void CreateFullSetData(string exerciceId, int repetition, int serie, float charge, string userId);
         public SetData GetSetDataById(string id);
         public SetData GetSetDataByExerciceId(string exerciceId);
+        public List<SetData> GetSetDataByUserId(string userId);
         public void DeleteSetDataById(string id);
         public void UpdateSetData(SetData setData);
         public void UpdateRepetition(string setdataId, int repetition);

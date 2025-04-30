@@ -4,6 +4,7 @@ using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
 using MongoDB.Driver;
+using System.Xml.Linq;
 
 namespace GymProgress.Api.Service
 {
@@ -166,6 +167,28 @@ namespace GymProgress.Api.Service
 
             return seance.MapToDomain();
 
+        }
+        public List<Seance> GetSeanceByUserId(string userId)
+        {
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("UserId", userId);
+
+            List<SeanceEntity> seances = collection
+                .Find(filter)
+                .ToList();
+
+            return MapToList(seances);
+        }
+        public List<Seance> GetSeancePublic()
+        {
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("UserId", "string");
+
+            List<SeanceEntity> seances = collection
+                .Find(filter)
+                .ToList();
+
+            return MapToList(seances);
         }
 
         public void DeleteSeanceById(string id)
