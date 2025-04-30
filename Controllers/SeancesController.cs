@@ -50,19 +50,19 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetSeanceById")]
-        public Seance GetSeanceById(string id)
+        public Seance GetSeanceById([FromQuery] string id)
         {
             return _service.GetSeanceById(id);
         }
 
         [HttpGet("GetSeanceByName")]
-        public Seance GetSeanceByName(string name)
+        public Seance GetSeanceByName([FromQuery] string name)
         {
             return _service.GetSeanceByName(name);
         }
 
         [HttpGet("GetSeanceByUserId")]
-        public List<Seance> GetSeanceByUserId(string userId)
+        public List<Seance> GetSeanceByUserId([FromQuery] string userId)
         {
             return _service.GetSeanceByUserId(userId);
         }
