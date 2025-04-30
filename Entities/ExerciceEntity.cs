@@ -14,7 +14,7 @@ namespace GymProgress.Api.Models
         [BsonElement("nom")]
         public string Nom { get; set; }
         [BsonElement("userId")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         [BsonElement("setDatas")]
         public List<SetDataEntity> SetDatas { get; set; } = [];
 

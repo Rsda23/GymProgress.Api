@@ -16,7 +16,7 @@ namespace GymProgress.Api.Models
         [BsonElement("exercices")]
         public List<ExerciceEntity> Exercices { get; set; } = [];
         [JsonPropertyName("userId")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         public SeanceEntity()
         {
