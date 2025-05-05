@@ -67,7 +67,7 @@ namespace GymProgress.Api.Service
             return user.MapToDomain();
         }
 
-        public void DeleteUserById(string id)
+        public async void DeleteUserById(string id)
         {
             var collectionUser = _database.GetCollection<UserEntity>("users");
             var collectionSetData = _database.GetCollection<SetDataEntity>("setdatas");
@@ -78,6 +78,12 @@ namespace GymProgress.Api.Service
             var filterSetData = Builders<SetDataEntity>.Filter.Eq(x => x.UserId, id);
             var filterSeance = Builders<SeanceEntity>.Filter.Eq(x => x.UserId, id);
             var filterExercice = Builders<ExerciceEntity>.Filter.Eq(x => x.UserId, id);
+
+            var setDatasId = collectionSetData.AsQueryable().Where(sd => sd.UserId == id).Select(sd => sd.Id).ToList();
+
+            var updateExercice = Builders<ExerciceEntity>.Update.PullFilter(e => e.SetDatas, sd => setDatasId.Contains(sd.Id));
+
+            await collectionExercice.UpdateManyAsync(Builders<ExerciceEntity>.Filter.Empty, updateExercice);
 
             collectionUser.DeleteOne(filterUser);
             collectionSetData.DeleteMany(filterSetData);
@@ -95,11 +101,16 @@ namespace GymProgress.Api.Service
             var users = GetAllUser();
             List<string> usersId = users.Select(e => e.UserId).Where(id => !string.IsNullOrWhiteSpace(id)).ToList();
 
-            await collectionUser.DeleteManyAsync(Builders<UserEntity>.Filter.Empty);
+            var setDatasId = collectionSetData.AsQueryable().Where(sd => usersId.Contains(sd.UserId)).Select(sd => sd.Id).ToList();
+
+            var updateExercice = Builders<ExerciceEntity>.Update.PullFilter(e => e.SetDatas, sd => setDatasId.Contains(sd.Id));
+            await collectionExercice.UpdateManyAsync(Builders<ExerciceEntity>.Filter.Empty, updateExercice);
+
             var filterSetData = Builders<SetDataEntity>.Filter.In(x => x.UserId, usersId);
             var filterSeance = Builders<SeanceEntity>.Filter.In(x => x.UserId, usersId);
             var filterExercice = Builders<ExerciceEntity>.Filter.In(x => x.UserId, usersId);
 
+            await collectionUser.DeleteManyAsync(Builders<UserEntity>.Filter.Empty);
             collectionSetData.DeleteMany(filterSetData);
             collectionSeance.DeleteMany(filterSeance);
             collectionExercice.DeleteMany(filterExercice);

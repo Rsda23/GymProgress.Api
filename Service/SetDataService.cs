@@ -116,7 +116,18 @@ namespace GymProgress.Api.Service
         }
         public async void DeleteAllSetData()
         {
+            var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
             var collectionSetDatas = _database.GetCollection<SetDataEntity>("setdatas");
+
+            var setDatasId = collectionSetDatas.AsQueryable().Select(sd => sd.Id).ToList();
+
+            foreach (var id in setDatasId)
+            {
+                var filter = Builders<ExerciceEntity>.Filter.ElemMatch(e => e.SetDatas, sd => sd.Id == id);
+                var update = Builders<ExerciceEntity>.Update.PullFilter(e => e.SetDatas, sd => sd.Id == id);
+
+                await collectionExercice.UpdateManyAsync(filter, update);
+            }
 
             await collectionSetDatas.DeleteManyAsync(Builders<SetDataEntity>.Filter.Empty);
         }
