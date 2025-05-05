@@ -65,6 +65,12 @@ namespace GymProgress.Api.Controllers
             _service.DeleteExerciceById(id);
         }
 
+        [HttpDelete("DeleteAllExercice")]
+        public void DeleteAllExercice()
+        {
+            _service.DeleteAllExercice();
+        }
+
         [HttpPut("PutName")]
         public void UpdateName(string exerciceId, string name)
         {

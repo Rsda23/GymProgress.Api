@@ -143,6 +143,17 @@ namespace GymProgress.Api.Service
 
             await setDataCollection.DeleteManyAsync(s => s.ExerciceId == exerciceId);
         }
+        public async void DeleteAllExercice()
+        {
+            var collectionExercices = _database.GetCollection<ExerciceEntity>("exercices");
+            var setDataCollection = _database.GetCollection<SetDataEntity>("setdatas");
+
+            var exercices = GetAllExercice();
+            List<string> exercicesId = exercices.Select(e => e.ExerciceId).ToList();
+           
+            await collectionExercices.DeleteManyAsync(Builders<ExerciceEntity>.Filter.Empty);
+            await setDataCollection.DeleteManyAsync(Builders<SetDataEntity>.Filter.In(s => s.ExerciceId, exercicesId));
+        }
 
         public void UpdateName(string exerciceId, string name)
         {
