@@ -39,7 +39,7 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpGet("GetSetDataByExerciceAndUser")]
-        public List<SetData> GetSetDataByExerciceAndUser(string exerciceId, string userId)
+        public List<SetData> GetSetDataByExerciceAndUser([FromQuery] string exerciceId, [FromQuery] string userId)
         {
             return _service.GetSetDataByExerciceAndUser(exerciceId, userId);
         }
