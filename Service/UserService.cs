@@ -1,4 +1,5 @@
-﻿using GymProgress.Api.Interface;
+﻿using GymProgress.Api.Entities;
+using GymProgress.Api.Interface;
 using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
@@ -68,10 +69,20 @@ namespace GymProgress.Api.Service
 
         public void DeleteUserById(string id)
         {
-            var collection = _database.GetCollection<UserEntity>("users");
-            var filter = MongoHelper.BuildFindByIdRequest<UserEntity>(id);
+            var collectionUser = _database.GetCollection<UserEntity>("users");
+            var collectionSetData = _database.GetCollection<SetDataEntity>("setDatas");
+            var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
+            var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
 
-            collection.DeleteOne(filter);
+            var filterUser = MongoHelper.BuildFindByIdRequest<UserEntity>(id);
+            var filterSetData = Builders<SetDataEntity>.Filter.Eq(x => x.UserId, id);
+            var filterSeance = Builders<SeanceEntity>.Filter.Eq(x => x.UserId, id);
+            var filterExercice = Builders<ExerciceEntity>.Filter.Eq(x => x.UserId, id);
+
+            collectionUser.DeleteOne(filterUser);
+            collectionSetData.DeleteMany(filterSetData);
+            collectionSeance.DeleteOne(filterSeance);
+            collectionExercice.DeleteOne(filterExercice);
         }
 
         public void DeleteUserByEmail(string email)
