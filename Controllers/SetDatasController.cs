@@ -38,6 +38,12 @@ namespace GymProgress.Api.Controllers
             return _service.GetSetDataByUserId(userId);
         }
 
+        [HttpGet("GetSetDataByExerciceAndUser")]
+        public List<SetData> GetSetDataByExerciceAndUser(string exerciceId, string userId)
+        {
+            return _service.GetSetDataByExerciceAndUser(exerciceId, userId);
+        }
+
         [HttpDelete("DeleteSetDataById")]
         public void DeleteSetDataById(string id)
         {

@@ -74,6 +74,26 @@ namespace GymProgress.Api.Service
 
             return MapToList(matching);
         }
+        public List<SetData> GetSetDataByExerciceAndUser(string exerciceId, string userId)
+        {
+            if (_database == null)
+            {
+                throw new InvalidOperationException("Error collection MongoDB");
+            }
+            var collection = _database.GetCollection<SetDataEntity>("setdatas");
+
+            var builder = Builders<SetDataEntity>.Filter;
+            var filter = builder.And( 
+                builder.Eq(x => x.UserId, userId), 
+                builder.Eq(x => x.ExerciceId, exerciceId)
+);
+
+            List<SetDataEntity> matching = collection
+                .Find(filter)
+                .ToList();
+
+            return MapToList(matching);
+        }
 
         public async void DeleteSetDataById(string setDataId)
         {
