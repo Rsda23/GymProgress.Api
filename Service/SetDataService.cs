@@ -114,6 +114,12 @@ namespace GymProgress.Api.Service
                 Builders<ExerciceEntity>.Update.PullFilter(e => e.SetDatas, sd => sd.Id == setDataId)
 );
         }
+        public async void DeleteAllSetData()
+        {
+            var collectionSetDatas = _database.GetCollection<SetDataEntity>("setdatas");
+
+            await collectionSetDatas.DeleteManyAsync(Builders<SetDataEntity>.Filter.Empty);
+        }
 
         public void UpdateSetData(SetData setData)
         {

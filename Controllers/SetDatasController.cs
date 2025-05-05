@@ -50,6 +50,12 @@ namespace GymProgress.Api.Controllers
             _service.DeleteSetDataById(id);
         }
 
+        [HttpDelete("DeleteAllSetData")]
+        public void DeleteAllSetData()
+        {
+            _service.DeleteAllSetData();
+        }
+
         [HttpPut("UpdateSetData")]
         public void UpdateSetData([FromBody] SetData setData)
         {
