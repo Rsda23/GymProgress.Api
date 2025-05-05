@@ -70,7 +70,7 @@ namespace GymProgress.Api.Service
         public void DeleteUserById(string id)
         {
             var collectionUser = _database.GetCollection<UserEntity>("users");
-            var collectionSetData = _database.GetCollection<SetDataEntity>("setDatas");
+            var collectionSetData = _database.GetCollection<SetDataEntity>("setdatas");
             var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
 
