@@ -12,6 +12,7 @@ namespace GymProgress.Api.Interface
         public User GetUserByEmail(string email);
         public void DeleteUserById(string id);
         public void DeleteUserByEmail(string email);
+        public void DeleteAllUser();
         public void ReplaceUser(string id, string pseudo, string email);
         public void ReplaceUserByPassword(string id, string password);
     }

@@ -85,6 +85,26 @@ namespace GymProgress.Api.Service
             collectionExercice.DeleteOne(filterExercice);
         }
 
+        public async void DeleteAllUser()
+        {
+            var collectionUser = _database.GetCollection<UserEntity>("users");
+            var collectionSetData = _database.GetCollection<SetDataEntity>("setDatas");
+            var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
+            var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
+
+            var users = GetAllUser();
+            List<string> usersId = users.Select(e => e.UserId).Where(id => !string.IsNullOrWhiteSpace(id)).ToList();
+
+            await collectionUser.DeleteManyAsync(Builders<UserEntity>.Filter.Empty);
+            var filterSetData = Builders<SetDataEntity>.Filter.In(x => x.UserId, usersId);
+            var filterSeance = Builders<SeanceEntity>.Filter.In(x => x.UserId, usersId);
+            var filterExercice = Builders<ExerciceEntity>.Filter.In(x => x.UserId, usersId);
+
+            collectionSetData.DeleteMany(filterSetData);
+            collectionSeance.DeleteMany(filterSeance);
+            collectionExercice.DeleteMany(filterExercice);
+        }
+
         public void DeleteUserByEmail(string email)
         {
             var collection = _database.GetCollection<UserEntity>("users");

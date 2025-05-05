@@ -55,6 +55,12 @@ namespace GymProgress.Api.Controllers
             _service.DeleteUserByEmail(email);
         }
 
+        [HttpDelete("DeleteAllUser")]
+        public void DeleteAllUser()
+        {
+            _service.DeleteAllUser();
+        }
+
         [HttpPut("PutUser")]
         public void ReplaceUser(string id, string pseudo, string email)
         {
