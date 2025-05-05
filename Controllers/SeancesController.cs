@@ -97,6 +97,12 @@ namespace GymProgress.Api.Controllers
             _service.DeleteExerciceToSeanceByName(Seanceid, exerciceName);
         }
 
+        [HttpDelete("DeleteAllSeance")]
+        public void DeleteAllSeance()
+        {
+            _service.DeleteAllSeance();
+        }
+
         [HttpPut("PutSeance")]
         public void ReplaceSeance(string id, string name)
         {

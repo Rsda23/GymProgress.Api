@@ -1,8 +1,10 @@
-﻿using GymProgress.Api.Interface;
+﻿using GymProgress.Api.Entities;
+using GymProgress.Api.Interface;
 using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Xml.Linq;
 
@@ -233,6 +235,12 @@ namespace GymProgress.Api.Service
             var update = Builders<SeanceEntity>.Update.Set(f => f.Exercices, seance.Exercices);
 
             collection.UpdateOne(filter, update);
+        }
+        public async void DeleteAllSeance()
+        {
+            var collectionSeances = _database.GetCollection<SeanceEntity>("seances");
+
+            await collectionSeances.DeleteManyAsync(Builders<SeanceEntity>.Filter.Empty);
         }
 
         public void ReplaceSeance(string id, string name)
