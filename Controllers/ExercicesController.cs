@@ -59,6 +59,12 @@ namespace GymProgress.Api.Controllers
             return _service.GetExerciceUserId(userId);
         }
 
+        [HttpGet("GetExercicesBySeanceId")]
+        public Task<List<Exercice>> GetExercicesBySeanceId([FromQuery] string seanceId)
+        {
+            return _service.GetExercicesBySeanceId(seanceId);
+        }
+
         [HttpDelete("DeleteExerciceById")]
         public void DeleteExerciceById(string id)
         {

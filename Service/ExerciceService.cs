@@ -127,6 +127,24 @@ namespace GymProgress.Api.Service
 
             return MapToList(exercices);
         }
+        public async Task<List<Exercice>> GetExercicesBySeanceId(string seanceId)
+        {
+            if (_database == null)
+            {
+                throw new InvalidOperationException("Error collection MongoDB");
+            }
+
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+
+            var seance = await collection.Find(filter).FirstOrDefaultAsync();
+
+            if (seance == null || seance.Exercices == null)
+                return new List<Exercice>();
+
+            return MapToList(seance.Exercices);
+        }
 
         public async void DeleteExerciceById(string exerciceId)
         {
