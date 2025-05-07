@@ -86,21 +86,27 @@ namespace GymProgress.Api.Controllers
         }
 
         [HttpDelete("DeleteExerciceToSeanceById")]
-        public void DeleteExerciceToSeanceById(string Seanceid, List<string> exerciceId)
+        public void DeleteExerciceToSeanceById(string seanceId, List<string> exerciceId)
         {
-            _service.DeleteExerciceToSeanceById(Seanceid, exerciceId);
+            _service.DeleteExerciceToSeanceById(seanceId, exerciceId);
         }
 
         [HttpDelete("DeleteExerciceToSeanceByName")]
-        public void DeleteExerciceToSeanceByName(string Seanceid, List<string> exerciceName)
+        public void DeleteExerciceToSeanceByName(string seanceId, List<string> exerciceName)
         {
-            _service.DeleteExerciceToSeanceByName(Seanceid, exerciceName);
+            _service.DeleteExerciceToSeanceByName(seanceId, exerciceName);
         }
 
         [HttpDelete("DeleteAllSeance")]
         public void DeleteAllSeance()
         {
             _service.DeleteAllSeance();
+        }
+
+        [HttpDelete("RemoveExerciceToSeance")]
+        public void RemoveExerciceToSeance([FromQuery] string seanceId, [FromQuery] string exerciceId)
+        {
+            _service.RemoveExerciceToSeance(seanceId, exerciceId);
         }
 
         [HttpPut("PutSeance")]

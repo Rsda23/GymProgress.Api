@@ -205,12 +205,12 @@ namespace GymProgress.Api.Service
             var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("Name", name);
             collection.DeleteOne(filter);
         }
-        public void DeleteExerciceToSeanceById(string Seanceid, List<string> exerciceId)
+        public void DeleteExerciceToSeanceById(string seanceId, List<string> exerciceId)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
 
-            SeanceEntity seance = collection.Find(Seanceid).FirstOrDefault();
+            SeanceEntity seance = collection.Find(seanceId).FirstOrDefault();
 
             if (exerciceId != null && exerciceId.Count() > 0)
             {
@@ -221,11 +221,11 @@ namespace GymProgress.Api.Service
 
             collection.UpdateOne(filter, update);
         }
-        public void DeleteExerciceToSeanceByName(string Seanceid, List<string> exerciceName)
+        public void DeleteExerciceToSeanceByName(string seanceId, List<string> exerciceName)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(Seanceid);
-            SeanceEntity seance = collection.Find(Seanceid).FirstOrDefault();
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+            SeanceEntity seance = collection.Find(seanceId).FirstOrDefault();
 
             if (exerciceName != null && exerciceName.Count() > 0)
             {
@@ -241,6 +241,17 @@ namespace GymProgress.Api.Service
             var collectionSeances = _database.GetCollection<SeanceEntity>("seances");
 
             await collectionSeances.DeleteManyAsync(Builders<SeanceEntity>.Filter.Empty);
+        }
+
+        public async void RemoveExerciceToSeance(string seanceId, string exerciceId)
+        {
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+
+            var update = Builders<SeanceEntity>.Update.PullFilter(s => s.Exercices, e => e.Id == exerciceId);
+
+            await collection.UpdateOneAsync(filter, update);
         }
 
         public void ReplaceSeance(string id, string name)
