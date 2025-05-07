@@ -1,12 +1,9 @@
-﻿using GymProgress.Api.Entities;
-using GymProgress.Api.Interface;
+﻿using GymProgress.Api.Interface;
 using GymProgress.Api.Interface.Map;
 using GymProgress.Api.Models;
 using GymProgress.Api.MongoHelpers;
 using GymProgress.Domain.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Xml.Linq;
 
 namespace GymProgress.Api.Service
 {
