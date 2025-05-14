@@ -20,7 +20,7 @@ namespace GymProgress.Api.Service
         public void CreateExercice(string nom, string userId)
         {
             DateTime date = DateTime.Now;
-            ExerciceEntity exercice = new ExerciceEntity(nom, userId);
+            ExerciceEntity exercice = new ExerciceEntity(nom, userId, date);
 
             if (_database == null)
             {

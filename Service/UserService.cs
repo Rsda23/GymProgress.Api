@@ -19,7 +19,8 @@ namespace GymProgress.Api.Service
 
         public void CreateUser(string pseudo, string email, string hashedPassword)
         {
-            UserEntity user = new UserEntity(pseudo, email, hashedPassword);
+            DateTime date = DateTime.Now;
+            UserEntity user = new UserEntity(pseudo, email, hashedPassword, date);
             if (_database == null)
             {
                 throw new InvalidOperationException("Error collection MongoDB");

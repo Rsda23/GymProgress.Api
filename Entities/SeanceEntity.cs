@@ -17,10 +17,19 @@ namespace GymProgress.Api.Models
         public List<ExerciceEntity> Exercices { get; set; } = [];
         [JsonPropertyName("userId")]
         public string? UserId { get; set; }
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
 
         public SeanceEntity()
         {
             Exercices = new List<ExerciceEntity>();
+        }
+
+        public SeanceEntity(string name, List<ExerciceEntity> exercices, DateTime date)
+        {
+            Name = name;
+            Exercices = exercices;
+            Date = date;
         }
 
         public SeanceEntity(string name, List<ExerciceEntity> exercices)
@@ -34,6 +43,13 @@ namespace GymProgress.Api.Models
             Exercices = exercices;
             UserId = userId;
         }
+        public SeanceEntity(string name, List<ExerciceEntity> exercices, string userId, DateTime date)
+        {
+            Name = name;
+            Exercices = exercices;
+            UserId = userId;
+            Date = date;
+        }
         public SeanceEntity(List<ExerciceEntity> exercices)
         {
             Exercices = exercices;
@@ -42,10 +58,21 @@ namespace GymProgress.Api.Models
         {
             Name = name;
         }
+        public SeanceEntity(string name, DateTime date)
+        {
+            Name = name;
+            Date = date;
+        }
         public SeanceEntity(string name, string userId)
         {
             Name = name;
             UserId = userId;
+        }
+        public SeanceEntity(string name, string userId, DateTime date)
+        {
+            Name = name;
+            UserId = userId;
+            Date = date;
         }
 
         public Seance MapToDomain()
@@ -55,7 +82,8 @@ namespace GymProgress.Api.Models
                 SeanceId = Id,
                 Name = Name,
                 Exercices = MapExercices(),
-                UserId = UserId
+                UserId = UserId,
+                Date = Date
             };
 
             return result;
@@ -69,7 +97,7 @@ namespace GymProgress.Api.Models
                 foreach (var item in Exercices)
                 {
                     var mapSetDatas = item.SetDatas.Select(x => x.MapToDomain()).ToList();
-                    result.Add(new Exercice(item.Nom, item.UserId, mapSetDatas));
+                    result.Add(new Exercice(item.Nom, item.UserId, mapSetDatas, item.Date));
                 }
             }
             return result;

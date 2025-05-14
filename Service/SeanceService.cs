@@ -20,7 +20,8 @@ namespace GymProgress.Api.Service
 
         public void CreateSeance(string name, string userId)
         {
-            SeanceEntity seance = new SeanceEntity(name, userId);
+            DateTime date = DateTime.Now;
+            SeanceEntity seance = new SeanceEntity(name, userId, date);
 
             var collection = _database.GetCollection<SeanceEntity>("seances");
             collection.InsertOne(seance);
@@ -28,6 +29,7 @@ namespace GymProgress.Api.Service
         }
         public void CreateSeanceWithExerciceId(string nameSeance, List<string> exerciceId, string userId)
         {
+            DateTime date = DateTime.Now;
             var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
 
@@ -46,13 +48,14 @@ namespace GymProgress.Api.Service
                 }
             }
 
-            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId);
+            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId, date);
 
             collectionSeance.InsertOne(seance);
 
         }
         public void CreateSeanceWithExerciceName(string nameSeance, List<string> exerciceName, string userId)
         {
+            DateTime date = DateTime.Now;
             var collectionSeance = _database.GetCollection<SeanceEntity>("seances");
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
 
@@ -72,7 +75,7 @@ namespace GymProgress.Api.Service
                 }
             }
             
-            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId);
+            SeanceEntity seance = new SeanceEntity(nameSeance, exercices, userId, date);
             collectionSeance.InsertOne(seance);
         }
         public void AddExerciceToSeanceById(string seanceId, List<string> execiceId)

@@ -17,6 +17,8 @@ namespace GymProgress.Api.Models
         public string? UserId { get; set; }
         [BsonElement("setDatas")]
         public List<SetDataEntity> SetDatas { get; set; } = [];
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
 
 
         public ExerciceEntity()
@@ -27,17 +29,29 @@ namespace GymProgress.Api.Models
         {
             Nom = nom;
         }
-        public ExerciceEntity(string nom, string userId)
+        public ExerciceEntity(string nom, string? userId)
         {
             Nom = nom;
             UserId = userId;
         }
-        public ExerciceEntity(string nom, string userId, List<SetDataEntity> setDatas) 
-                       
+        public ExerciceEntity(string nom, string? userId, DateTime date)
+        {
+            Nom = nom;
+            UserId = userId;
+            Date = date;
+        }
+        public ExerciceEntity(string nom, string? userId, List<SetDataEntity> setDatas)         
         {
             Nom = nom;
             UserId = userId;
             SetDatas = setDatas;
+        }
+        public ExerciceEntity(string nom, string? userId, List<SetDataEntity> setDatas, DateTime date)
+        {
+            Nom = nom;
+            UserId = userId;
+            SetDatas = setDatas;
+            Date = date;
         }
 
         public Exercice MapToDomain()
@@ -47,6 +61,7 @@ namespace GymProgress.Api.Models
                 ExerciceId = Id,
                 Nom = Nom,
                 UserId = UserId,
+                Date = Date,
                 SetDatas = MapSetDatas()
             };
             return result;

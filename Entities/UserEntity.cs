@@ -16,12 +16,21 @@ namespace GymProgress.Api.Models
         public string Email { get; set; }
         [BsonElement("hashedPassword")]
         public string HashedPassword { get; set; }
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
 
         public UserEntity(string pseudo, string email, string hashedPassword)
         {
             Pseudo = pseudo;
             Email = email;
             HashedPassword = hashedPassword;
+        }
+        public UserEntity(string pseudo, string email, string hashedPassword, DateTime date)
+        {
+            Pseudo = pseudo;
+            Email = email;
+            HashedPassword = hashedPassword;
+            Date = date;
         }
 
         public User MapToDomain()
@@ -31,7 +40,8 @@ namespace GymProgress.Api.Models
                 UserId = Id,
                 Pseudo = Pseudo,
                 Email = Email,
-                HashedPassword = HashedPassword
+                HashedPassword = HashedPassword,
+                Date = Date
             };
 
             return result;
