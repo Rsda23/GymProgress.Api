@@ -14,6 +14,7 @@ namespace GymProgress.Api.Interface
         public Seance GetSeanceByName(string name);
         public List<Seance> GetSeanceByUserId(string userId);
         public List<Seance> GetSeancePublic();
+        public List<Seance> GetLastSeance(int count);
         public void DeleteSeanceById(string id);
         public void DeleteSeanceByName(string name);
         public void DeleteExerciceToSeanceById(string seanceId, List<string> exerciceId);

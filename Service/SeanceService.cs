@@ -192,6 +192,19 @@ namespace GymProgress.Api.Service
 
             return MapToList(seances);
         }
+        public List<Seance> GetLastSeance(int count)
+        {
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+            var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("UserId", "string");
+
+            List<SeanceEntity> seances = collection
+                .Find(filter)
+                .SortByDescending(s => s.Date)
+                .Limit(count)
+                .ToList();
+
+            return MapToList(seances);
+        }
 
         public void DeleteSeanceById(string id)
         {
