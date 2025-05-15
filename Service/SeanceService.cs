@@ -192,10 +192,10 @@ namespace GymProgress.Api.Service
 
             return MapToList(seances);
         }
-        public List<Seance> GetLastSeance(int count)
+        public List<Seance> GetLastSeance(int count, string userId)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");
-            var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("UserId", "string");
+            var filter = MongoHelper.BuildFindByChampRequest<SeanceEntity>("UserId", userId);
 
             List<SeanceEntity> seances = collection
                 .Find(filter)
