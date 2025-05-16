@@ -267,6 +267,18 @@ namespace GymProgress.Api.Service
             await collection.UpdateOneAsync(filter, update);
         }
 
+        public void UpdateDate(string seanceId)
+        {
+            DateTime date = DateTime.Now;
+            var collection = _database.GetCollection<SeanceEntity>("seances");
+
+            var filter = MongoHelper.BuildFindByIdRequest<SeanceEntity>(seanceId);
+
+            var update = Builders<SeanceEntity>.Update.Combine(
+                Builders<SeanceEntity>.Update.Set(f => f.Date, date));
+
+            collection.UpdateOne(filter, update);
+        }
         public void ReplaceSeance(string id, string name)
         {
             var collection = _database.GetCollection<SeanceEntity>("seances");

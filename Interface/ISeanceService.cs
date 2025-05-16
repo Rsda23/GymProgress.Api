@@ -21,6 +21,7 @@ namespace GymProgress.Api.Interface
         public void DeleteExerciceToSeanceByName(string seanceId, List<string> exerciceName);
         public void DeleteAllSeance();
         public void RemoveExerciceToSeance(string seanceId, string exerciceId);
+        public void UpdateDate(string seanceId);
         public void ReplaceSeance(string id, string name);
         public void ReplaceExerciceById(string seanceId, List<string> exerciceId);
         public void ReplaceExerciceByName(string seanceId, List<string> exerciceId);

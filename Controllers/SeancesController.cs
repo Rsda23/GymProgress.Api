@@ -115,6 +115,12 @@ namespace GymProgress.Api.Controllers
             _service.RemoveExerciceToSeance(seanceId, exerciceId);
         }
 
+        [HttpPut("UpdateDate")]
+        public void UpdateDate([FromQuery] string seanceId)
+        {
+            _service.UpdateDate(seanceId);
+        }
+
         [HttpPut("PutSeance")]
         public void ReplaceSeance(string id, string name)
         {
