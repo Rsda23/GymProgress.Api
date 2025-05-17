@@ -48,6 +48,11 @@ namespace GymProgress.Api.Controllers
         {
             return _service.GetExerciceByName(name);
         }
+        [HttpGet("GetExerciceByNameAndUser")]
+        public Exercice GetExerciceByNameAndUser([FromQuery]string name, [FromQuery]string userId)
+        {
+            return _service.GetExerciceByNameAndUser(name, userId);
+        }
         [HttpGet("GetExercicePublic")]
         public List<Exercice> GetExercicePublic()
         {

@@ -95,6 +95,26 @@ namespace GymProgress.Api.Service
 
             return matching.MapToDomain();
         }
+        public Exercice GetExerciceByNameAndUser(string name, string userId)
+        {
+            if (_database == null)
+            {
+                throw new InvalidOperationException("Error collection MongoDB");
+            }
+
+            var collectionUser = _database.GetCollection<User>("users");
+            var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
+            var filter = Builders<ExerciceEntity>.Filter.And(
+                         Builders<ExerciceEntity>.Filter.Eq("Nom", name),
+                         Builders<ExerciceEntity>.Filter.Eq("UserId", userId)
+                         );
+
+            ExerciceEntity matching = collectionExercice
+                .Find(filter)
+                .FirstOrDefault();
+
+            return matching.MapToDomain();
+        }
         public List<Exercice> GetExercicePublic()
         {
             if (_database == null)

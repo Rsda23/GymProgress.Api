@@ -10,6 +10,7 @@ namespace GymProgress.Api.Interface
         public List<Exercice> GetAllExercice();
         public Exercice GetExerciceById(string id);
         public Exercice GetExerciceByName(string name);
+        public Exercice GetExerciceByNameAndUser(string name, string userId);
         public List<Exercice> GetExercicePublic();
         public List<Exercice> GetExerciceUserId(string userId);
         public Task<List<Exercice>> GetExercicesBySeanceId(string seanceId);
