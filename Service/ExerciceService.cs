@@ -106,8 +106,10 @@ namespace GymProgress.Api.Service
             var collectionExercice = _database.GetCollection<ExerciceEntity>("exercices");
             var filter = Builders<ExerciceEntity>.Filter.And(
                          Builders<ExerciceEntity>.Filter.Eq("Nom", name),
-                         Builders<ExerciceEntity>.Filter.Eq("UserId", userId)
-                         );
+                         Builders<ExerciceEntity>.Filter.Or(
+                         Builders<ExerciceEntity>.Filter.Eq("UserId", userId),
+                         Builders<ExerciceEntity>.Filter.Eq("UserId", "string")
+                         ));
 
             ExerciceEntity matching = collectionExercice
                 .Find(filter)
